@@ -33,6 +33,9 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
+import android.content.Intent;
+import android.content.Context;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -47,8 +50,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass", "bar@example.com:world"
+    private static String[] DUMMY_CREDENTIALS = new String[]{
+            "user@example.com:pass"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -190,12 +193,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("");
+        if (email.equals("user@exmaple.com")) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 3;
+        if (password.equals("pass")) {
+            return true;
+        }
+        return false;
     }
 
     /**
