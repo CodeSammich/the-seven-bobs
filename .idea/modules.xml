@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Crymsonfire\Documents\2nd year Spring\CS2340\the-seven-bobs\app\app.iml" filepath="C:\Users\Crymsonfire\Documents\2nd year Spring\CS2340\the-seven-bobs\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/the-seven-bobs.iml" filepath="$PROJECT_DIR$/.idea/the-seven-bobs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/the-seven-bobs.iml" filepath="$PROJECT_DIR$/the-seven-bobs.iml" />
       <module fileurl="file://C:\Users\Crymsonfire\Documents\2nd year Spring\CS2340\the-seven-bobs\the-seven-bobs.iml" filepath="C:\Users\Crymsonfire\Documents\2nd year Spring\CS2340\the-seven-bobs\the-seven-bobs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/the-seven-bobs.iml" filepath="$PROJECT_DIR$/.idea/the-seven-bobs.iml" />
     </modules>
   </component>
 </project>
