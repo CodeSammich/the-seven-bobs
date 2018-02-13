@@ -355,6 +355,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+            Intent LoginActivityIntent = new Intent(getApplicationContext(),
+                            LoginActivity.class);
+            startActivity(LoginActivityIntent);
         }
     }
 }
