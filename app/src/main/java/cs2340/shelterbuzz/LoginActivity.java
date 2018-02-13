@@ -194,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        if (email.equals("user@exmaple.com")) {
+        if (email.equals("user@example.com")) {
             return true;
         }
         return false;
@@ -342,7 +342,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 Intent MainActivityIntent = new Intent(getApplicationContext(),
-                        LoginActivity.class);
+                        MainActivity.class);
                 startActivity(MainActivityIntent);
                 //finish();
             } else {
