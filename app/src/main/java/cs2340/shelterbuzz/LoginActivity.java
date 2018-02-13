@@ -98,9 +98,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(),
-                LoginActivity.class);
-        startActivity(intent);
+        mAuthTask.cancel(true);
     }
 
     private void populateAutoComplete() {
