@@ -19,11 +19,21 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent LoginActivityIntent = new Intent(getApplicationContext(),
                         LoginActivity.class);
                 startActivity(LoginActivityIntent);
+            }
 
-            }}
+            }
+            );
+
+        Button registerButton = findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent RegisterActivityIntent = new Intent(getApplicationContext(),
+                            RegisterActivity.class);
+                    startActivity(RegisterActivityIntent);
+                }
+                }
 
         );
-
 
 
 
