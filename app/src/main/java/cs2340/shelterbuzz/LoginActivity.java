@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Pair;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -54,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static String[] DUMMY_CREDENTIALS = new String[]{
             "user@example.com:pass"
     };
+
+    public static ArrayList<Pair<String, String>> credentials = new ArrayList<>();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -198,16 +201,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        if (email.equals("user@example.com")) {
-            return true;
+        for (Pair p: credentials) {
+            if (((String)(p.first)).equals(email)) {
+                return true;
+            }
         }
+        /**if (email.equals("user@example.com")) {
+            return true;
+        } */
         return false;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        if (password.equals("pass")) {
-            return true;
+        for (Pair p: credentials) {
+            if (((String)(p.second)).equals(password)) {
+                return true;
+            }
         }
         return false;
     }
