@@ -3,6 +3,7 @@ package cs2340.shelterbuzz;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,8 +31,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Pair;
 
 import static android.Manifest.permission.READ_CONTACTS;
+
+import android.content.Intent;
+import android.content.Context;
 
 /**
  * A login screen that offers login via email/password.
@@ -47,9 +52,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass", "bar@example.com:world"
+    private static String[] DUMMY_CREDENTIALS = new String[]{
+            "user@example.com:pass"
     };
+
+    public static ArrayList<Pair<String, String>> credentials = new ArrayList<>();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -91,6 +98,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    public void onClick(View view) {
+        mAuthTask.cancel(true);
     }
 
     private void populateAutoComplete() {
@@ -160,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("The password is invalid.");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -190,12 +201,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("");
+        for (Pair p: credentials) {
+            if (((String)(p.first)).equals(email)) {
+                return true;
+            }
+        }
+        /**if (email.equals("user@example.com")) {
+            return true;
+        } */
+        return false;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 3;
+        for (Pair p: credentials) {
+            if (((String)(p.second)).equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -331,9 +355,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+                Intent MainActivityIntent = new Intent(getApplicationContext(),
+                        MainActivity.class);
+                startActivity(MainActivityIntent);
+                //finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError("The password is invalid");
                 mPasswordView.requestFocus();
             }
         }
@@ -342,6 +369,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+            Intent LoginActivityIntent = new Intent(getApplicationContext(),
+                            LoginActivity.class);
+            startActivity(LoginActivityIntent);
         }
     }
 }
