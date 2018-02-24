@@ -35,6 +35,4 @@ public class HomelessPerson {
         this.userPass = pair;
     }
 
-
-
 }
