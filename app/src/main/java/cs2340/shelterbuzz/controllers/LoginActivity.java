@@ -1,4 +1,4 @@
-package cs2340.shelterbuzz;
+package cs2340.shelterbuzz.controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -35,8 +35,7 @@ import android.util.Pair;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-import android.content.Intent;
-import android.content.Context;
+import cs2340.shelterbuzz.R;
 
 /**
  * A login screen that offers login via email/password.
