@@ -14,6 +14,7 @@ import java.util.Arrays;
 import android.util.Pair;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -55,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         String userid = useridField.getText().toString();
         String password = passwordField.getText().toString();
 
+        Model model = Model.getInstance();
 
         LoginActivity.credentials.add(new Pair<>(userid, password));
         //Log.d("stuff", LoginActivity.credentials.get(0));

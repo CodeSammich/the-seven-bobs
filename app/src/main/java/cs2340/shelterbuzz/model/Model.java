@@ -18,4 +18,12 @@ public class Model {
     private Model() {
         accounts = new ArrayList<>();
     }
+
+    public List<Pair<String, String>> getAccounts() {
+        return accounts;
+    }
+
+    public boolean addUser(Pair<String, String> p) {
+        accounts.add(p);
+    }
 }
