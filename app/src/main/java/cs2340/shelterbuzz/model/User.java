@@ -10,28 +10,39 @@ public abstract class User {
     //name of this user
     private String name;
 
-    //Username and password Pair
-    private Pair<String, String> userPass;
+    private String username;
+
+    private String pass;
 
     //getters and setters
     public String getName() {
         return name;
     }
 
-    public Pair<String, String> getUserPass() {
-        return userPass;
-    }
 
     public void setName(String s) {
         this.name = s;
     }
 
-    public void setUserPass(Pair<String, String> p) {
-        this.userPass = p;
+
+    public User(String name, String user, String pass) {
+        this.name = name;
+        this.username = user;
+        this.pass = pass;
+}
+
+    public String getUsername() {
+        return username;
     }
 
-    public User(String name, Pair<String, String> pair) {
-        this.name = name;
-        this.userPass = pair;
+    public void setUsername(String username) {
+        this.username = username;
     }
-}
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
