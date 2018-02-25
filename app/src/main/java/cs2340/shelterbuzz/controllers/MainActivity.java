@@ -25,5 +25,15 @@ public class MainActivity extends AppCompatActivity {
             }}
 
         );
+        Button listButton = findViewById(R.id.listButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent ShelterListActivityIntent = new Intent(getApplicationContext(),
+                        ShelterListActivity.class);
+                startActivity(ShelterListActivityIntent);
+
+            }}
+
+        );
     }
 }

@@ -26,26 +26,27 @@ public class ShelterListActivity extends AppCompatActivity {
 
         ListView shelters = (ListView)findViewById(R.id.shelter_list);
         //CODE BELOW WILL MAKE IT SO WHEN YOU CLICK ON A LIST ITEM, IT TAKES YOU TO DETAILS PAGE
-//        shelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position,
-//                                    long id) {
-//                Intent intent = new Intent(getBaseContext(), "put details class name in here");
-//                startActivity(intent);
-//            }
-//        });
+        shelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(getBaseContext(), ShelterDetailActivity.class);
+                startActivity(intent);
+            }
+        });
         load();
 
 
 
     }
     public void load() {
+        //just putting some dummy info
         List<String> names = new ArrayList<>();
         names.add("first item");
         names.add("second item");
         names.add("third item");
         ListAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, names);
-        ListView eventsList = (ListView) findViewById(R.id.shelter_list);
-        eventsList.setAdapter(listAdapter);
+        ListView shelterList = (ListView) findViewById(R.id.shelter_list);
+        shelterList.setAdapter(listAdapter);
     }
 }

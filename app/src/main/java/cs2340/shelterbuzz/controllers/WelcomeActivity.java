@@ -40,6 +40,17 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
 
         );
+        //button for testing the shelter view
+//        Button shitButton = findViewById(R.id.test);
+//        shitButton.setOnClickListener(new View.OnClickListener() {
+//                                              public void onClick(View v) {
+//                                                  Intent RegisterActivityIntent = new Intent(getApplicationContext(),
+//                                                          ShelterListActivity.class);
+//                                                  startActivity(RegisterActivityIntent);
+//                                              }
+//                                          }
+//
+//        );
 
 
 //        Model model = Model.getInstance();
