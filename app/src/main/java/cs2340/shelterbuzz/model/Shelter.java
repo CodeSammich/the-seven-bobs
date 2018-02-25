@@ -6,7 +6,7 @@ package cs2340.shelterbuzz.model;
 
 public class Shelter {
     private String name;
-	private int capacity;
+	private String capacity;
 	private String restrictions; // parse for keywords, not standardized format
 	private double longitude;
 	private double latitude;
@@ -16,7 +16,7 @@ public class Shelter {
 	
 	public Shelter() {
 		this.name = "";
-		this.capacity = 0;
+		this.capacity = "";
 		this.restrictions = "";
 		this.longitude = 0;
 		this.latitude = 0;
@@ -25,7 +25,7 @@ public class Shelter {
 		this.phoneNumber = "";
 	}
 
-	public Shelter(String name, int capacity, String restrictions,
+	public Shelter(String name, String capacity, String restrictions,
 	               double longitude, double latitude, String address,
 	               String specialNotes, String phoneNumber) {
 		this();
@@ -48,11 +48,11 @@ public class Shelter {
         this.name = name;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
