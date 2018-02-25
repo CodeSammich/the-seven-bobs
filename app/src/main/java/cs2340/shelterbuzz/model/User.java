@@ -29,7 +29,7 @@ public abstract class User {
         this.name = name;
         this.username = user;
         this.pass = pass;
-}
+    }
 
     public String getUsername() {
         return username;
@@ -46,3 +46,4 @@ public abstract class User {
     public void setPass(String pass) {
         this.pass = pass;
     }
+}

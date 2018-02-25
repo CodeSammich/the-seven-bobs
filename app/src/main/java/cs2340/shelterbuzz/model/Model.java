@@ -23,7 +23,14 @@ public class Model {
 
     public boolean addUser(User u) {
         for (User curr: accounts) {
-            if (curr.getName())
+            if (curr.getName().equals(u.getName())
+                    && curr.getPass().equals(u.getPass())
+                    && curr.getUsername().equals(u.getUsername())) {
+                //returns false if duplicate user
+                return false;
+            }
         }
+        accounts.add(u);
+        return true;
     }
 }
