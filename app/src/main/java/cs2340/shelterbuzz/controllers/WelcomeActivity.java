@@ -42,9 +42,10 @@ public class WelcomeActivity extends AppCompatActivity {
         );
 
 
-        Model model = Model.getInstance();
-        model.readCSV();
-        Log.d("first line", model.getShelters().get(0).toString());
+//        Model model = Model.getInstance();
+//        model.readCSV();
+//        Log.d("first line", model.getShelters().get(0).toString());
+
     }
 
 
