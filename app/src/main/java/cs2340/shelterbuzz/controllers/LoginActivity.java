@@ -57,7 +57,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             "user@example.com:pass"
     };
 
-    public static List<User> users = Model.getInstance().getAccounts();
+    private static List<User> users = Model.getInstance().getAccounts();
+    public List<User> getUsers() {
+        return users;
+    }
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */

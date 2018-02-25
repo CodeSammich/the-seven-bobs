@@ -14,7 +14,10 @@ import java.util.Arrays;
 import android.util.Pair;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Gender;
+import cs2340.shelterbuzz.model.HomelessPerson;
 import cs2340.shelterbuzz.model.Model;
+import cs2340.shelterbuzz.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -56,9 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
         String userid = useridField.getText().toString();
         String password = passwordField.getText().toString();
 
+        User newuser = new HomelessPerson(name, userid, password, 25, false, Gender.FEMALE);
         Model model = Model.getInstance();
 
-        LoginActivity.credentials.add(new Pair<>(userid, password));
+        Model.getInstance().getAccounts().add(newuser);
         //Log.d("stuff", LoginActivity.credentials.get(0));
         finish();
     }
