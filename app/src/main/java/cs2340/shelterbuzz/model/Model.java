@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by tonyw on 2/24/2018.
- * Facade
+ * Facade. Currently contains a List of registered users.
  */
 
 public class Model {
