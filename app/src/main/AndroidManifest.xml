@@ -27,6 +27,7 @@
         <activity android:name=".controllers.RegisterActivity" />
         <activity android:name=".controllers.MainActivity" />
         <activity android:name=".controllers.ShelterDetailActivity"></activity>
+        <activity android:name=".controllers.userRegister"></activity>
     </application>
 
 </manifest>
