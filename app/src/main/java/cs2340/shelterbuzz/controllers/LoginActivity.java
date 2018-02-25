@@ -36,6 +36,7 @@ import android.util.Pair;
 import static android.Manifest.permission.READ_CONTACTS;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.User;
 
 /**
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             "user@example.com:pass"
     };
 
-    public static List<User> users = new ArrayList<>();
+    public static List<User> users = Model.getInstance().getAccounts();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -206,21 +207,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        for (Pair p: credentials) {
-            if (((String)(p.first)).equals(email)) {
+        for (User u: users) {
+            if (u.getUsername().equals(email)) {
                 return true;
             }
         }
-        /**if (email.equals("user@example.com")) {
-            return true;
-        } */
         return false;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        for (Pair p: credentials) {
-            if (((String)(p.second)).equals(password)) {
+        for (User u: users) {
+            if (u.getPass().equals(password)) {
                 return true;
             }
         }
