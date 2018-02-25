@@ -25,7 +25,15 @@
         </activity>
         <activity android:name=".controllers.LoginActivity" />
         <activity android:name=".controllers.RegisterActivity" />
-        <activity android:name=".controllers.MainActivity"></activity>
+        <activity android:name=".controllers.MainActivity" />
+        <activity
+            android:name=".controllers.ShelterListActivity"
+            android:label="@string/title_activity_shelter_list"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
