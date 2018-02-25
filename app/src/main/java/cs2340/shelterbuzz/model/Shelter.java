@@ -20,7 +20,7 @@ public class Shelter {
 		this.restrictions = "";
 		this.longitude = 0;
 		this.latitude = 0;
-		this.address = 0;
+		this.address = "";
 		this.specialNotes = "";
 		this.phoneNumber = 0;
 	}
