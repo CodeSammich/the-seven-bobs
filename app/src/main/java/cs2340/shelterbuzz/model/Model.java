@@ -1,4 +1,6 @@
 package cs2340.shelterbuzz.model;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -43,11 +45,14 @@ public class Model {
     public void readCSV() {
         final String DELIMITER = ",";
         BufferedReader bf = null;
+        //Log.d("success", "success");
         try {
+
             String line = "";
-            bf = new BufferedReader(new FileReader("../../res/raw/Homeless_Shelter_Database.csv"));
+            bf = new BufferedReader(new FileReader("../../res/raw/homeless_shelter_database.csv"));
             bf.readLine();
             while((line = bf.readLine()) != null) {
+                Log.d("success", "success");
                 String[] s = line.split(DELIMITER);
                 int capacity = Integer.parseInt(s[2]);
                 double longitude = Double.parseDouble(s[4]);
@@ -55,14 +60,9 @@ public class Model {
                 Shelter shelter = new Shelter(s[1], capacity, s[3], longitude, latitude,s[6], s[7], s[8]);
                 shelters.add(shelter);
             }
+            bf.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                bf.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

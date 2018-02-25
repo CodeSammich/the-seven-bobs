@@ -100,7 +100,13 @@ public class Shelter {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String toString() {
+	    return name + " Capacity: " + capacity + ", Restrictions: " + restrictions
+                + ", Longitude: " + longitude + ", Latitude: " + latitude + ", Address: "
+                + address + ", Phone number: " + phoneNumber;
     }
 }

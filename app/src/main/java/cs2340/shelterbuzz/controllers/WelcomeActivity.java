@@ -3,12 +3,14 @@ package cs2340.shelterbuzz.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.controllers.LoginActivity;
 import cs2340.shelterbuzz.controllers.RegisterActivity;
+import cs2340.shelterbuzz.model.Model;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -40,8 +42,9 @@ public class WelcomeActivity extends AppCompatActivity {
         );
 
 
-
-
+        Model model = Model.getInstance();
+        model.readCSV();
+        Log.d("first line", model.getShelters().get(0).toString());
     }
 
 
