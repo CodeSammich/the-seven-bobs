@@ -17,8 +17,8 @@ public class HomelessPerson extends User{
     private int age;
 
     //Constructor
-    public HomelessPerson(String name, Pair<String, String> pair, int a, boolean v, Gender g) {
-        super(name, pair);
+    public HomelessPerson(String name, String user, String pass, int a, boolean v, Gender g) {
+        super(name, user, pass);
         age = a;
         veteran = v;
         gender = g;

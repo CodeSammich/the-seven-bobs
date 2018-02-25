@@ -22,6 +22,8 @@ public class Model {
     }
 
     public boolean addUser(User u) {
-        accounts.add(u);
+        for (User curr: accounts) {
+            if (curr.getName())
+        }
     }
 }
