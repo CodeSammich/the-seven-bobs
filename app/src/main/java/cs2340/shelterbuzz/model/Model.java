@@ -49,7 +49,7 @@ public class Model {
         try {
 
             String line = "";
-            bf = new BufferedReader(new FileReader("../../res/raw/homeless_shelter_database.csv"));
+            bf = new BufferedReader(new FileReader("../../../../res/raw/homeless_shelter_database.csv"));
             bf.readLine();
             while((line = bf.readLine()) != null) {
                 Log.d("success", "success");
