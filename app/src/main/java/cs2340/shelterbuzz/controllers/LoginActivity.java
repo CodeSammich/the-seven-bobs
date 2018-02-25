@@ -1,4 +1,4 @@
-package cs2340.shelterbuzz;
+package cs2340.shelterbuzz.controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -35,8 +35,9 @@ import android.util.Pair;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-import android.content.Intent;
-import android.content.Context;
+import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
+import cs2340.shelterbuzz.model.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -56,7 +57,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             "user@example.com:pass"
     };
 
-    public static ArrayList<Pair<String, String>> credentials = new ArrayList<>();
+    private static List<User> users = Model.getInstance().getAccounts();
+    public List<User> getUsers() {
+        return users;
+    }
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -101,7 +105,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void onClick(View view) {
-        mAuthTask.cancel(true);
+        if (mAuthTask != null) {
+            mAuthTask.cancel(true);
+        } else {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void populateAutoComplete() {
@@ -201,21 +210,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        for (Pair p: credentials) {
-            if (((String)(p.first)).equals(email)) {
+        for (User u: users) {
+            if (u.getUsername().equals(email)) {
                 return true;
             }
         }
-        /**if (email.equals("user@example.com")) {
-            return true;
-        } */
         return false;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        for (Pair p: credentials) {
-            if (((String)(p.second)).equals(password)) {
+        for (User u: users) {
+            if (u.getPass().equals(password)) {
                 return true;
             }
         }
