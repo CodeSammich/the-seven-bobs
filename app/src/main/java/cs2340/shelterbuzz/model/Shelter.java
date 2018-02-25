@@ -12,7 +12,7 @@ public class Shelter {
 	private double latitude;
 	private String address;
 	private String specialNotes;
-	private long phoneNumber;
+	private String phoneNumber;
 	
 	public Shelter() {
 		this.name = "";
@@ -22,12 +22,12 @@ public class Shelter {
 		this.latitude = 0;
 		this.address = "";
 		this.specialNotes = "";
-		this.phoneNumber = 0;
+		this.phoneNumber = "";
 	}
 
 	public Shelter(String name, int capacity, String restrictions,
 	               double longitude, double latitude, String address,
-	               String specialNotes, long phoneNumber) {
+	               String specialNotes, String phoneNumber) {
 		this();
 		this.name = name;
 		this.capacity = capacity;
@@ -96,7 +96,7 @@ public class Shelter {
         this.specialNotes = specialNotes;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
