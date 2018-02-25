@@ -36,6 +36,7 @@ import android.util.Pair;
 import static android.Manifest.permission.READ_CONTACTS;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             "user@example.com:pass"
     };
 
-    public static ArrayList<Pair<String, String>> credentials = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
