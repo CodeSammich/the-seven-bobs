@@ -18,7 +18,7 @@ public class Model {
 
     private Model() {
         accounts = new ArrayList<>();
-        shelters = new LinkedList<>();
+        shelters = new ArrayList<>();
     }
 
     public List<User> getAccounts() {
