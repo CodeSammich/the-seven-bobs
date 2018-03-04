@@ -26,22 +26,21 @@ public enum Age {
     }
 
     /**
-     *
+     * Gets the enum constant of the value it is associated with
      * @param word age restriction keyword
      * @return range enum constant according to the string value
+     * @return null if no matches are found, return null
      */
-
-    @Override
-    public static Age valueOf(String word) throws IllegalArgumentException {
+    public static Age enumOf(String word) {
         for (Age age : values()) {
-            if (age.equals(word)) {
+            if (age.getValue().contains(word)) {
                 return age;
             }
         }
-        throw new IllegalArgumentException("There is no age range indicated of that age.");
+
+        return null;
     }
 
-    //equals
 
 }
 
