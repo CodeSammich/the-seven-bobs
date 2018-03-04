@@ -5,5 +5,18 @@ package cs2340.shelterbuzz.model;
  */
 
 public enum Gender {
-    MALE, FEMALE
-};
+    MALE("Men", "Male"),
+    FEMALE("Women", "Female"),
+    GENDERFLUID("Gender Fluid"),
+    GENDERNEUTRAL("Agender");
+
+    private final String[] gender;
+
+    Gender(String ... keyword) {
+        this.gender = keyword;
+    }
+
+    public String[] getValue() {
+        return gender;
+    }
+}
