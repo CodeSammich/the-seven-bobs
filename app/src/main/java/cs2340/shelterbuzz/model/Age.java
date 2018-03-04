@@ -21,7 +21,7 @@ public enum Age {
         this.age = Arrays.asList(keywords);
     }
 
-    public List<String> getAge() {
+    public List<String> getValue() {
         return age;
     }
 
