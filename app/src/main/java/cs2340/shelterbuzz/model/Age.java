@@ -9,12 +9,7 @@ public enum Age {
     FAMILIES("Families", "Families w/", "Families with"),
     CHILDREN("Children", "Chilrdrens"),
     TEENS("Young adults", "Young Adults"),
-    ANYONE;
-
-    private
-
-
-
-}
+    ANYONE
+};
 
 
