@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         );
         Button searchButton = findViewById(R.id.searchbutton);
-        listButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent SearchActivityIntent = new Intent(getApplicationContext(),
                         Main2Activity.class);

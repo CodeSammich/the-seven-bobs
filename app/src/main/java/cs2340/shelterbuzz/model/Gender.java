@@ -12,11 +12,11 @@ public enum Gender {
 
     private final String[] gender;
 
-    Age(String ... keyword) {
+    Gender(String ... keyword) {
         this.gender = keyword;
     }
 
-    public String[] getGender() {
+    public String[] getValue() {
         return gender;
     }
 }
