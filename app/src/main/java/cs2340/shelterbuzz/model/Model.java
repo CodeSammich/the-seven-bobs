@@ -191,7 +191,7 @@ public class Model {
 		}
 
 		for (int p = 1; p <= n; p++) {
-			L[i][p] = 0;
+			L[p][0] = 0;
 		}
 
 		for (int i = 1; i <= n; i++) {
