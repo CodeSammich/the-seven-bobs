@@ -187,7 +187,7 @@ public class Model {
 		// L = max length of LCS between s1_1 -> s1_n and s2_1 -> s2_m
 		int[][] L = new int[n+1][m+1]; 
 		for (int k = 0; k <= m; k++) {
-			L[0][k] = 0
+			L[0][k] = 0;
 		}
 
 		for (int p = 1; p <= n; p++) {
@@ -200,11 +200,11 @@ public class Model {
 					// charAt(i-1) and charAt(j-1) is the same as x_i and y_j
 					L[i][j] = 1 + L[i-1][j-1];
 				} else {
-					L[i][j] = Math.max(L[i-1][j], L[i,j-1]);
+					L[i][j] = Math.max(L[i-1][j], L[i][j-1]);
 				}
 			}
 		}
 
-		return L[n][m]
+		return L[n][m];
 	} 
 }
