@@ -5,5 +5,5 @@ package cs2340.shelterbuzz.model;
  */
 
 public enum Gender {
-    MALE, FEMALE
+    MALE, FEMALE, GENDERFLUID, AGENDER
 };
