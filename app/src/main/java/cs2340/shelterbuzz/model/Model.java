@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
- * Created by tonyw on 2/24/2018.
+ * Created by tonyw and Sigma on 2/24/2018.
  * Facade. Currently contains a List of registered users.
  */
 
@@ -100,6 +100,13 @@ public class Model {
                 longitude, lattitude, address, specialNotes, phoneNumber));
     }
 
+	/**
+	 * Returns the complete list of shelters
+	 */
+	public List<Shelter> getShelters() {
+		return this.shelters;
+	}
+	
     /**
      * Gets a list of shelters meeting search criteria sorted by search name accuracy
      *
