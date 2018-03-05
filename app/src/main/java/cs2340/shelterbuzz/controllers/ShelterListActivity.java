@@ -2,6 +2,7 @@ package cs2340.shelterbuzz.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
+import cs2340.shelterbuzz.model.Shelter;
 
 public class ShelterListActivity extends AppCompatActivity {
 
@@ -30,7 +33,9 @@ public class ShelterListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+
                 Intent intent = new Intent(getBaseContext(), ShelterDetailActivity.class);
+                intent.putExtra("parcel_data", (Parcelable) parent.getItemAtPosition(position));
                 startActivity(intent);
             }
         });
@@ -40,13 +45,12 @@ public class ShelterListActivity extends AppCompatActivity {
 
     }
     public void load() {
+        Model model = Model.getInstance();
+        List<Shelter> shelters = model.getShelters();
         //just putting some dummy info
-        List<String> names = new ArrayList<>();
-        names.add("first item");
-        names.add("second item");
-        names.add("third item");
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, names);
-        ListView shelterList = (ListView) findViewById(R.id.shelter_list);
+
+        ListAdapter listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, shelters);
+        ListView shelterList = findViewById(R.id.shelter_list);
         shelterList.setAdapter(listAdapter);
     }
 }

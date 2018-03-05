@@ -1,10 +1,13 @@
 package cs2340.shelterbuzz.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sigma on 2/24/18.
  */
 
-public class Shelter {
+public class Shelter implements Parcelable{
     private String name;
 	private String capacity;
 	private String restrictions; // parse for keywords, not standardized format
@@ -25,6 +28,17 @@ public class Shelter {
 		this.phoneNumber = "";
 	}
 
+	public Shelter(Parcel in) {
+	    name = in.readString();
+	    capacity = in.readString();
+	    restrictions = in.readString();
+	    longitude = in.readDouble();
+	    latitude = in.readDouble();
+	    address = in.readString();
+	    specialNotes = in.readString();
+	    phoneNumber = in.readString();
+    }
+
 	public Shelter(String name, String capacity, String restrictions,
 	               double longitude, double latitude, String address,
 	               String specialNotes, String phoneNumber) {
@@ -41,6 +55,31 @@ public class Shelter {
 
 	    public String getName() {
         return name;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+	    dest.writeString(name);
+	    dest.writeString(capacity);
+        dest.writeString(restrictions);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
+        dest.writeString(address);
+        dest.writeString(specialNotes);
+        dest.writeString(phoneNumber);
+    }
+
+    public static final Parcelable.Creator<Shelter>CREATOR = new Parcelable.Creator<Shelter>() {
+	    public Shelter createFromParcel(Parcel in) {
+	        return new Shelter(in);
+        }
+        public Shelter[] newArray(int size) {
+	        return new Shelter[size];
+        }
+    };
+
+	public int describeContents() {
+	    return 0;
     }
 
 	// Getter and Setters
@@ -105,8 +144,6 @@ public class Shelter {
     }
 
     public String toString() {
-	    return name + " Capacity: " + capacity + ", Restrictions: " + restrictions
-                + ", Longitude: " + longitude + ", Latitude: " + latitude + ", Address: "
-                + address + ", Phone number: " + phoneNumber;
+	    return name;
     }
 }
