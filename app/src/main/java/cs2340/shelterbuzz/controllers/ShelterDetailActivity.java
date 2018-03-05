@@ -9,17 +9,24 @@ import android.widget.TextView;
 
 public class ShelterDetailActivity extends Activity {
 
-    TextView name = (TextView) findViewById(R.id.name);
-    TextView capacity = (TextView) findViewById(R.id.capacity);
-    TextView restrictions = (TextView) findViewById(R.id.restrictions);
-    TextView address = (TextView) findViewById(R.id.address);
-    TextView specialNotes = (TextView) findViewById(R.id.notes);
-    TextView phoneNumber = (TextView) findViewById(R.id.phone);
+	TextView name;
+	TextView capacity;
+	TextView restrictions;
+	TextView address;
+	TextView specialNotes;
+	TextView phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail);
+
+        name = (TextView) findViewById(R.id.name);
+        capacity = (TextView) findViewById(R.id.capacity);
+        restrictions = (TextView) findViewById(R.id.restrictions);
+        address = (TextView) findViewById(R.id.address);
+        specialNotes = (TextView) findViewById(R.id.notes);
+        phoneNumber = (TextView) findViewById(R.id.phone);
 
         Shelter shelter = (Shelter) getIntent().getParcelableExtra("parcel_data");
         name.setText(shelter.getName());
