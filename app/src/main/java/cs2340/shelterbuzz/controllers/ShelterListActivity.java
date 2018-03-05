@@ -27,7 +27,7 @@ public class ShelterListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
 
-        ListView shelters = (ListView)findViewById(R.id.shelter_list);
+        ListView shelters = (ListView) findViewById(R.id.shelter_list);
         //CODE BELOW WILL MAKE IT SO WHEN YOU CLICK ON A LIST ITEM, IT TAKES YOU TO DETAILS PAGE
         shelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,7 +49,7 @@ public class ShelterListActivity extends AppCompatActivity {
         List<Shelter> shelters = model.getShelters();
         //just putting some dummy info
 
-        ListAdapter listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, shelters);
+        ListAdapter listAdapter = new ArrayAdapter<Shelter>(this, android.R.layout.simple_expandable_list_item_1, shelters);
         ListView shelterList = findViewById(R.id.shelter_list);
         shelterList.setAdapter(listAdapter);
     }
