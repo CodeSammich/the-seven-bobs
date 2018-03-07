@@ -29,7 +29,7 @@ public class Model {
 		
 		@Override
 		public int compareTo(ShelterPriority other) {
-			return Integer.compare(this.priority, other.priority);
+			return -1 * Integer.compare(this.priority, other.priority);
 		}
 
 		public void setShelter(Shelter shelter) {
@@ -123,17 +123,20 @@ public class Model {
 	    // the search query and the shelter name
 		for (int i = 0; i < this.shelters.size(); i++) {
 			Shelter current = shelters.get(i);
-			if (name.equals("Name")) {
-				if (containsGender(current.getRestrictions(), gender)) {
-					searchedShelters.add(new ShelterPriority(current, 1));
-				} else if (containsAge(current.getRestrictions(), age)) {
-					searchedShelters.add(new ShelterPriority(current, 1));
-				}
+
+			// number of characters matching in sequence between search/actual name
+			int priority = longestCommonSubsequenceLength(name, current.getName());
+			if (name.equals(current.getName())) {
+				// search name is exactly correct, so ignore gender/age
+				searchedShelters.add(new ShelterPriority
+				                     (current, Integer.MAX_VALUE));
 			} else {
-				int priority = longestCommonSubsequenceLength(name, current.getName());
-				if (priority >= 5) {
+				// name incorrect, check if gender and age matches
+				if (containsAge(current.getRestrictions(), age)
+				    &&
+				    containsGender(current.getRestrictions(), gender)) {
 					searchedShelters.add(new ShelterPriority(current, priority));
-			    }
+				}
 			}
 //			int priority = longestCommonSubsequenceLength(name, current.getName());
 //
