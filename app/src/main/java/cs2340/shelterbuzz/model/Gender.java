@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public enum Gender {
+    N/A(""),
     MALE("Men", "Male"),
     FEMALE("Women", "Female"),
     GENDER_FLUID("Gender Fluid"),
