@@ -1,56 +1,55 @@
 package cs2340.shelterbuzz.controllers;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Age;
+import cs2340.shelterbuzz.model.Gender;
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
 
-public class ShelterListActivity extends AppCompatActivity {
+public class ShelterListActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shelter_list);
 
-        ListView shelters = (ListView) findViewById(R.id.shelter_list);
-        //CODE BELOW WILL MAKE IT SO WHEN YOU CLICK ON A LIST ITEM, IT TAKES YOU TO DETAILS PAGE
-        shelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
+        List<Shelter> shelters;
+        String shelterName = getIntent().getStringExtra("name");
+        // If start of this activity was a result of a search...
+        if (shelterName != null) {
+            // get shelters matching w/ user data
+            Gender g = (Gender) getIntent().getSerializableExtra("gender");
+            Age a = (Age) getIntent().getSerializableExtra("age");
+            shelters = Model.getInstance().getShelters(shelterName, a, g);
+        } else {
+            // else get every shelter
+            shelters = Model.getInstance().getShelters();
+        }
 
-                Intent intent = new Intent(getBaseContext(), ShelterDetailActivity.class);
-                intent.putExtra("parcel_data", (Parcelable) parent.getItemAtPosition(position));
-                startActivity(intent);
-            }
-        });
-        load();
-
-
-
+        // Populate list view with shelters
+        ListAdapter listAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, shelters);
+        ListView listView = getListView();
+        listView.setAdapter(listAdapter);
     }
-    public void load() {
-        Model model = Model.getInstance();
-        List<Shelter> shelters = model.getShelters();
-        //just putting some dummy info
 
-        ListAdapter listAdapter = new ArrayAdapter<Shelter>(this, android.R.layout.simple_expandable_list_item_1, shelters);
-        ListView shelterList = findViewById(R.id.shelter_list);
-        shelterList.setAdapter(listAdapter);
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(this, ShelterDetailActivity.class);
+        // EXTRA_SHELTER is just a static final string, I do it like this
+        // to guarantee consistency across activities
+        intent.putExtra(ShelterDetailActivity.EXTRA_SHELTER, (Parcelable) getListView()
+                .getItemAtPosition(position));
+        startActivity(intent);
     }
 }

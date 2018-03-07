@@ -37,7 +37,7 @@
         <activity android:name=".controllers.ShelterDetailActivity" />
         <activity android:name=".controllers.userRegister" />
         <activity
-            android:name=".controllers.Main2Activity"
+            android:name=".controllers.SearchActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

@@ -17,12 +17,23 @@ import java.nio.charset.StandardCharsets;
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.controllers.LoginActivity;
 import cs2340.shelterbuzz.controllers.RegisterActivity;
+import cs2340.shelterbuzz.model.Age;
+import cs2340.shelterbuzz.model.Gender;
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
 
 public class WelcomeActivity extends AppCompatActivity {
 
     private static final String TAG = "MY_APP";
+
+    private static final int SHELTER_NAME = 1;
+    private static final int CAPACITY = 2;
+    private static final int RESTRICTIONS = 3;
+    private static final int LONGITUDE = 4;
+    private static final int LATITUDE = 5;
+    private static final int ADDRESS = 6;
+    private static final int SPECIAL_NOTES = 7;
+    private static final int PHONE_NUMBER = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
 
         );
-        readCSV();
+        readShelterData();
         //button for testing the shelter view
 //        Button shitButton = findViewById(R.id.test);
 //        shitButton.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +81,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    public void readCSV() {
+    public void readShelterData() {
         try {
             Model model = Model.getInstance();
             //Open a stream on the raw file
@@ -81,14 +92,31 @@ public class WelcomeActivity extends AppCompatActivity {
 
             String line;
             br.readLine(); //get rid of header line
-            while ((line = br.readLine()) != null) {
-                String[] tokens = line.split(",");
-                model.addShelter(tokens[1], tokens[2], tokens[3],
-                        Double.parseDouble(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], tokens[7], tokens[8]);
-            }
 
-            for (Shelter shelter : model.getShelters()) {
-                Log.d(TAG, shelter.toString());
+            String shelterName;
+            String capacity;
+            String restrictions;
+            String longitude;
+            String latitude;
+            String address;
+            String specialNotes;
+            String phoneNumber;
+
+            while ((line = br.readLine()) != null) {
+                String[] tokens = line.split(";");
+                shelterName = tokens[SHELTER_NAME];
+                capacity = tokens[CAPACITY];
+                restrictions = tokens[RESTRICTIONS];
+                longitude = tokens[LONGITUDE];
+                latitude = tokens[LATITUDE];
+                address = tokens[ADDRESS];
+                specialNotes = tokens[SPECIAL_NOTES];
+                phoneNumber = tokens[PHONE_NUMBER];
+
+                model.addShelter(shelterName, capacity, restrictions,
+                        Double.parseDouble(longitude),
+                        Double.parseDouble(latitude),
+                        address, specialNotes, phoneNumber);
             }
 
             br.close();

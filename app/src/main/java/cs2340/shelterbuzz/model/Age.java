@@ -13,7 +13,8 @@ public enum Age {
     FAMILIES("Families", "Families w/", "Families with"),
     CHILDREN("Children", "Childrens"),
     TEENS("Young adults", "Young Adults", "Teenagers"),
-    ANYONE;
+    VETERAN("Veterans"),
+    ANYONE("Anyone");
 
     private final List<String> age;
 

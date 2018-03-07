@@ -1,5 +1,8 @@
 package cs2340.shelterbuzz.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by tonyw on 2/24/2018.
  */
@@ -7,16 +10,26 @@ package cs2340.shelterbuzz.model;
 public enum Gender {
     MALE("Men", "Male"),
     FEMALE("Women", "Female"),
-    GENDERFLUID("Gender Fluid"),
-    GENDERNEUTRAL("Agender");
+    GENDER_FLUID("Gender Fluid"),
+    GENDER_NEUTRAL("Agender");
 
-    private final String[] gender;
+
+    private final List<String> gender;
 
     Gender(String ... keyword) {
-        this.gender = keyword;
+        this.gender = Arrays.asList(keyword);
     }
 
-    public String[] getValue() {
+    public List<String> getValue() {
         return gender;
+    }
+
+    public static Gender enumOf(String word) {
+        for (Gender gender : values()) {
+            if (gender.getValue().contains(word)) {
+                return gender;
+            }
+        }
+        return null;
     }
 }

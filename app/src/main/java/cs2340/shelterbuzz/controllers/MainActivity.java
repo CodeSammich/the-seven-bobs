@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent SearchActivityIntent = new Intent(getApplicationContext(),
-                        Main2Activity.class);
+                        SearchActivity.class);
                 startActivity(SearchActivityIntent);
 
             }}

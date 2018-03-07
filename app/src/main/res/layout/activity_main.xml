@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="cs2340.shelterbuzz.controllers.MainActivity">
 
-    <EditText
+    <TextView
         android:id="@+id/mainAppText"
         android:layout_width="242dp"
         android:layout_height="48dp"

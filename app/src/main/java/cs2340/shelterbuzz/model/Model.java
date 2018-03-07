@@ -96,8 +96,9 @@ public class Model {
      */
     public void addShelter(String name, String capacity, String restrictions, double longitude,
                            double lattitude, String address, String specialNotes, String phoneNumber) {
-        shelters.add(new Shelter(name, capacity, restrictions,
-                longitude, lattitude, address, specialNotes, phoneNumber));
+    	Shelter shelter = new Shelter(name, capacity, restrictions,
+				longitude, lattitude, address, specialNotes, phoneNumber);
+        shelters.add(shelter);
     }
 
 	/**
@@ -122,25 +123,44 @@ public class Model {
 	    // the search query and the shelter name
 		for (int i = 0; i < this.shelters.size(); i++) {
 			Shelter current = shelters.get(i);
-
-			int priority = longestCommonSubsequenceLength(name, current.getName());
-			if (priority > 0 // name matches to with priority number of different characters
-			    &&
-			    containsAge(current.getRestrictions(), age) // age is correct
-			    &&
-			    containsGender(current.getRestrictions(), gender)) { // gender is correct
-				// shelter is similar
-				searchedShelters.add(new ShelterPriority(current, priority));
+			if (name.equals("Name")) {
+				if (containsGender(current.getRestrictions(), gender)) {
+					searchedShelters.add(new ShelterPriority(current, 1));
+				} else if (containsAge(current.getRestrictions(), age)) {
+					searchedShelters.add(new ShelterPriority(current, 1));
+				}
+			} else {
+				int priority = longestCommonSubsequenceLength(name, current.getName());
+				if (priority >= 5) {
+					searchedShelters.add(new ShelterPriority(current, priority));
+			    }
 			}
+//			int priority = longestCommonSubsequenceLength(name, current.getName());
+//
+////			if (priority > 0 // name matches to with priority number of different characters
+////			    &&
+////			    containsAge(current.getRestrictions(), age) // age is correct
+////			    &&
+////			    containsGender(current.getRestrictions(), gender)) { // gender is correct
+////				// shelter is similar
+////				searchedShelters.add(new ShelterPriority(current, priority));
+////			}
+//			if (priority > 5) {
+//				searchedShelters.add(new ShelterPriority(current, priority));
+//			}
 		}
 
 		ArrayList<Shelter> shelters = new ArrayList<>();
-		ShelterPriority[] PQShelters = (ShelterPriority[])(searchedShelters.toArray());
+		ShelterPriority[] PQShelters = searchedShelters.toArray(new ShelterPriority[0]);
 		for (int i = 0; i < PQShelters.length; i++) {
 			shelters.add(PQShelters[i].getShelter());
 		}
 		return shelters;
     }
+
+    public Shelter getShelter(int i) {
+		return shelters.get(i);
+	}
 
     /**
      * Checks if the String contains one of the strings in the Age enum value list

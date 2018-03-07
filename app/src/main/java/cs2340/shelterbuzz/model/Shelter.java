@@ -7,7 +7,8 @@ import android.os.Parcelable;
  * Created by Sigma on 2/24/18.
  */
 
-public class Shelter implements Parcelable{
+public class Shelter implements Parcelable {
+
     private String name;
 	private String capacity;
 	private String restrictions; // parse for keywords, not standardized format
@@ -16,17 +17,6 @@ public class Shelter implements Parcelable{
 	private String address;
 	private String specialNotes;
 	private String phoneNumber;
-	
-	public Shelter() {
-		this.name = "";
-		this.capacity = "";
-		this.restrictions = "";
-		this.longitude = 0;
-		this.latitude = 0;
-		this.address = "";
-		this.specialNotes = "";
-		this.phoneNumber = "";
-	}
 
 	public Shelter(Parcel in) {
 	    name = in.readString();
@@ -42,7 +32,6 @@ public class Shelter implements Parcelable{
 	public Shelter(String name, String capacity, String restrictions,
 	               double longitude, double latitude, String address,
 	               String specialNotes, String phoneNumber) {
-		this();
 		this.name = name;
 		this.capacity = capacity;
 		this.restrictions = restrictions;
@@ -52,10 +41,6 @@ public class Shelter implements Parcelable{
 		this.specialNotes = specialNotes;
 		this.phoneNumber = phoneNumber;
 	}
-
-	    public String getName() {
-        return name;
-    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -145,5 +130,9 @@ public class Shelter implements Parcelable{
 
     public String toString() {
 	    return name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

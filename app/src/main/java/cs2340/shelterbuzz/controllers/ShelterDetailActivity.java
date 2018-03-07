@@ -1,6 +1,7 @@
 package cs2340.shelterbuzz.controllers;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
 
 import android.os.Bundle;
@@ -9,12 +10,14 @@ import android.widget.TextView;
 
 public class ShelterDetailActivity extends Activity {
 
-	TextView name;
-	TextView capacity;
-	TextView restrictions;
-	TextView address;
-	TextView specialNotes;
-	TextView phoneNumber;
+	private TextView name;
+	private TextView capacity;
+	private TextView restrictions;
+	private TextView address;
+	private TextView specialNotes;
+	private TextView phoneNumber;
+
+	public static final String EXTRA_SHELTER = "shelterNo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,8 @@ public class ShelterDetailActivity extends Activity {
         specialNotes = (TextView) findViewById(R.id.notes);
         phoneNumber = (TextView) findViewById(R.id.phone);
 
-        Shelter shelter = (Shelter) getIntent().getParcelableExtra("parcel_data");
+        Shelter shelter = (Shelter) getIntent().getParcelableExtra(EXTRA_SHELTER);
+
         name.setText(shelter.getName());
         capacity.setText(shelter.getCapacity());
         restrictions.setText(shelter.getRestrictions());
@@ -36,6 +40,4 @@ public class ShelterDetailActivity extends Activity {
         specialNotes.setText(shelter.getSpecialNotes());
         phoneNumber.setText(shelter.getPhoneNumber());
     }
-
-
 }
