@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 
 public enum Age {
-    N/A(""),
+    UNSPECIFY(""),
     FAMILIES("Families", "Families w/", "Families with"),
     CHILDREN("Children", "Childrens"),
     TEENS("Young adults", "Young Adults", "Teenagers"),
