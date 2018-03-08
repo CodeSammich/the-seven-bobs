@@ -11,11 +11,11 @@ import java.util.PriorityQueue;
  */
 
 public class Model {
-    private static final Model _instance = new Model();
-    public static Model getInstance() { return _instance; }
+	private static final Model _instance = new Model();
+	public static Model getInstance() { return _instance; }
 
-    private List<User> accounts;
-    private List<Shelter> shelters;
+	private List<User> accounts;
+	private List<Shelter> shelters;
 
 	private class ShelterPriority implements Comparable<ShelterPriority> {
 		/* Class to sort shelters by priority during search */
@@ -26,7 +26,7 @@ public class Model {
 			this.shelter = shelter;
 			this.priority = priority;
 		}
-		
+
 		@Override
 		public int compareTo(ShelterPriority other) {
 			// -1 because Android displays smallest priority element first
@@ -40,7 +40,7 @@ public class Model {
 		public void setPriority(int priority) {
 			this.priority = priority;
 		}
-		
+
 		public Shelter getShelter() {
 			return this.shelter;
 		}
@@ -49,58 +49,58 @@ public class Model {
 			return this.priority;
 		}
 	}
-	
-    private Model() {
-        accounts = new ArrayList<>();
-        shelters = new ArrayList<>();
-    }
 
-    /**
-     * Returns list of user accounts
-     *
-     * @return List of user accounts
-     */
-    public List<User> getAccounts() {
-        return accounts;
-    }
+	private Model() {
+		accounts = new ArrayList<>();
+		shelters = new ArrayList<>();
+	}
 
-    /**
-     * Adds a user to the accounts list
-     *
-     * @param u user account
-     * @return true if user added successfully, false otherwise
-     */
-    public boolean addUser(User u) {
-        for (User curr: accounts) {
-            if (curr.getName().equals(u.getName())
-                    && curr.getPass().equals(u.getPass())
-                    && curr.getUsername().equals(u.getUsername())) {
-                //returns false if duplicate user
-                return false;
-            }
-        }
-        accounts.add(u);
-        return true;
-    }
+	/**
+	 * Returns list of user accounts
+	 *
+	 * @return List of user accounts
+	 */
+	public List<User> getAccounts() {
+		return accounts;
+	}
 
-    /**
-     * Adds a shelter to the list
-     *
-     * @param name
-     * @param capacity
-     * @param restrictions
-     * @param longitude
-     * @param lattitude
-     * @param address
-     * @param specialNotes
-     * @param phoneNumber
-     */
-    public void addShelter(String name, String capacity, String restrictions, double longitude,
-                           double lattitude, String address, String specialNotes, String phoneNumber) {
-    	Shelter shelter = new Shelter(name, capacity, restrictions,
-				longitude, lattitude, address, specialNotes, phoneNumber);
-        shelters.add(shelter);
-    }
+	/**
+	 * Adds a user to the accounts list
+	 *
+	 * @param u user account
+	 * @return true if user added successfully, false otherwise
+	 */
+	public boolean addUser(User u) {
+		for (User curr: accounts) {
+			if (curr.getName().equals(u.getName())
+			    && curr.getPass().equals(u.getPass())
+			    && curr.getUsername().equals(u.getUsername())) {
+				//returns false if duplicate user
+				return false;
+			}
+		}
+		accounts.add(u);
+		return true;
+	}
+
+	/**
+	 * Adds a shelter to the list
+	 *
+	 * @param name
+	 * @param capacity
+	 * @param restrictions
+	 * @param longitude
+	 * @param lattitude
+	 * @param address
+	 * @param specialNotes
+	 * @param phoneNumber
+	 */
+	public void addShelter(String name, String capacity, String restrictions, double longitude,
+	                       double lattitude, String address, String specialNotes, String phoneNumber) {
+		Shelter shelter = new Shelter(name, capacity, restrictions,
+		                              longitude, lattitude, address, specialNotes, phoneNumber);
+		shelters.add(shelter);
+	}
 
 	/**
 	 * Returns the complete list of shelters
@@ -108,29 +108,37 @@ public class Model {
 	public List<Shelter> getShelters() {
 		return this.shelters;
 	}
-	
-    /**
-     * Gets a list of shelters meeting search criteria sorted by search name accuracy
-     *
-     * @param name String to find shelters with similar names
-     * @param age Enum
-     * @param gender Enum
-     * @return list of Shelters ordered by accuracy
-     */
+
+	/**
+	 * Gets a list of shelters meeting search criteria sorted by search name accuracy
+	 *
+	 * @param name String to find shelters with similar names
+	 * @param age Enum
+	 * @param gender Enum
+	 * @return list of Shelters ordered by accuracy
+	 */
 	public List<Shelter> getShelters(String name, Age age, Gender gender) {
-	    PriorityQueue<ShelterPriority> searchedShelters = new PriorityQueue<>();
+		PriorityQueue<ShelterPriority> searchedShelters = new PriorityQueue<>();
 
-	    // order priority queue by longest common subsequence length between
-	    // the search query and the shelter name
-	    String[] nameSplit = name.split(" ");
-		for (int i = 0; i < this.shelters.size(); i++) {
-			Shelter current = shelters.get(i);
+		// order priority queue by longest common subsequence length between
+		// the search query and the shelter name
+		if (name.equals("")) {
+			// if no name field entered, just search by Age/Gender
+			for (int simple = 0; simple < this.shelters.size(); simple++) {
+				Shelter current = shelters.get(simple);
+				if (containsAge(current.getRestrictions(), age)
+				    &&
+				    containsGender(current.getRestrictions(), gender)) {
+					// add them all as same priority
+					searchedShelters.add(new ShelterPriority(current, 1));
+				}
+			}
+		} else {
+			// name field is not trivial, so prioritize by name
+			String[] nameSplit = name.split(" ");
+			for (int i = 0; i < this.shelters.size(); i++) {
+				Shelter current = shelters.get(i);
 
-			if (name.equals(current.getName())) {
-				// search name is exactly correct, so ignore gender/age
-				searchedShelters.add(new ShelterPriority
-				                     (current, Integer.MAX_VALUE));
-			} else {
 				// Prioritize results by accuracy per word, "best matching word"
 				// number of characters matching b.t. search/shelter per word
 				String[] shelterNameSplit = current.getName().split(" ");
@@ -153,7 +161,7 @@ public class Model {
 					}
 					// sum all the greatest matches to find total priority
 					// "total matching characters" per word
-					priority += currPriority; 
+					priority += currPriority;
 				}
 
 				// name incorrect, check if gender and age also match
@@ -168,26 +176,26 @@ public class Model {
 			}
 		}
 
-		// Convert to generic List for consistency
+		// Convert PQ to generic List for consistency
 		ArrayList<Shelter> shelters = new ArrayList<>();
 		ShelterPriority[] PQShelters = searchedShelters.toArray(new ShelterPriority[0]);
 		for (int i = 0; i < PQShelters.length; i++) {
 			shelters.add(PQShelters[i].getShelter());
 		}
 		return shelters;
-    }
+	}
 
-    public Shelter getShelter(int i) {
+	public Shelter getShelter(int i) {
 		return shelters.get(i);
 	}
 
-    /**
-     * Checks if the String contains one of the strings in the Age enum value list
-     *
-     * @param restrictions String provided by Shelter object
-     * @param age Enum to get list of keyword phrases
-     * @return true if restrictions contains age keywords, false otherwise
-     */
+	/**
+	 * Checks if the String contains one of the strings in the Age enum value list
+	 *
+	 * @param restrictions String provided by Shelter object
+	 * @param age Enum to get list of keyword phrases
+	 * @return true if restrictions contains age keywords, false otherwise
+	 */
 	private boolean containsAge(String restrictions, Age age) {
 		for (String phrase : age.getValue()) {
 			// phrase is a way a restriction might be phrased
@@ -198,13 +206,13 @@ public class Model {
 		return false;
 	}
 
-    /**
-     * Checks if the String contains one of the strings in the Gender enum value list
-     *
-     * @param restrictions String provided by Shelter object
-     * @param gender Enum to get list of keyword phrases
-     * @return true if restrictions contains gender keywords, false otherwise
-     */
+	/**
+	 * Checks if the String contains one of the strings in the Gender enum value list
+	 *
+	 * @param restrictions String provided by Shelter object
+	 * @param gender Enum to get list of keyword phrases
+	 * @return true if restrictions contains gender keywords, false otherwise
+	 */
 	private boolean containsGender(String restrictions, Gender gender) {
 		for (String phrase : gender.getValue()) {
 			// phrase is a way a restriction might be phrased
@@ -215,23 +223,26 @@ public class Model {
 		return false;
 	}
 
-    /**
-     * Finds the length of Longest Common Subsequence of two strings
-     * in O(nm) time given n, m are the lengths of the strings
-     *
-     * @param s1 String
-     * @param s2 String
-     * @return length of LCS
-     */
+	/**
+	 * Finds the length of Longest Common Subsequence of two strings
+	 * in O(nm) time given n, m are the lengths of the strings
+	 *
+	 * @param s1 String
+	 * @param s2 String
+	 * @return length of LCS
+	 */
 	private int longestCommonSubsequenceLength(String s1, String s2) {
 		// DP solution for LCS, slightly modified from 3510 notes
 		// since we start at x_0 rather than x_1
-		
+		if (s1.equals("") || s2.equals("")) {
+			return 0;
+		}
+
 		int n = s1.length() - 1;
 		int m = s2.length() - 1;
 
 		// L = max length of LCS between s1_1 -> s1_n and s2_1 -> s2_m
-		int[][] L = new int[n+1][m+1]; 
+		int[][] L = new int[n+1][m+1];
 		for (int k = 0; k <= m; k++) {
 			L[0][k] = 0;
 		}
@@ -252,5 +263,5 @@ public class Model {
 		}
 
 		return L[n][m];
-	} 
+	}
 }
