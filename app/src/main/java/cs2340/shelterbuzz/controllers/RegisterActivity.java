@@ -48,6 +48,11 @@ public class RegisterActivity extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.editText4);
         accountType = (Spinner) findViewById(R.id.spinner);
 
+        // set default text, set to "" during deployment!!
+        nameField.setText("");
+        useridField.setText("User");
+        passwordField.setText("Password");
+
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,
                 new ArrayList(Arrays.asList("User", "Admin", "Shelter Employee")));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

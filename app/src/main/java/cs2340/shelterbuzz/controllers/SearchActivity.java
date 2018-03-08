@@ -42,6 +42,9 @@ public class SearchActivity extends AppCompatActivity {
         gender = (Spinner) findViewById(R.id.spinner3);
         age = (Spinner) findViewById(R.id.spinner4);
 
+        // set default text to empty
+        nameField.setText("");
+
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Gender.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);

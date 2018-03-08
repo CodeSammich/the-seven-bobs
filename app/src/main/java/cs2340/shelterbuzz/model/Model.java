@@ -29,6 +29,7 @@ public class Model {
 		
 		@Override
 		public int compareTo(ShelterPriority other) {
+			// -1 because Android displays smallest priority element first
 			return -1 * Integer.compare(this.priority, other.priority);
 		}
 
@@ -121,38 +122,53 @@ public class Model {
 
 	    // order priority queue by longest common subsequence length between
 	    // the search query and the shelter name
+	    String[] nameSplit = name.split(" ");
 		for (int i = 0; i < this.shelters.size(); i++) {
 			Shelter current = shelters.get(i);
 
-			// number of characters matching in sequence between search/actual name
-			int priority = longestCommonSubsequenceLength(name, current.getName());
 			if (name.equals(current.getName())) {
 				// search name is exactly correct, so ignore gender/age
 				searchedShelters.add(new ShelterPriority
 				                     (current, Integer.MAX_VALUE));
 			} else {
-				// name incorrect, check if gender and age matches
-				if (containsAge(current.getRestrictions(), age)
+				// Prioritize results by accuracy per word, "best matching word"
+				// number of characters matching b.t. search/shelter per word
+				String[] shelterNameSplit = current.getName().split(" ");
+				int priority = 0;
+				for (int j = 0; j < nameSplit.length; j++) {
+					int currPriority = 0;
+					for (int k = 0; k < shelterNameSplit.length; k++) {
+						// find the best matching word in a phrase
+						// may overcount duplicates, but is accurate enough for n^2
+						if (nameSplit[j].equals(shelterNameSplit[k])) {
+							// if one word matches exactly, add a lot of priority
+							currPriority += 100;
+						} else {
+							// find the most accurate word
+							int temp = longestCommonSubsequenceLength(nameSplit[j], shelterNameSplit[k]);
+							if (temp > currPriority) {
+								currPriority = temp;
+							}
+						}
+					}
+					// sum all the greatest matches to find total priority
+					// "total matching characters" per word
+					priority += currPriority; 
+				}
+
+				// name incorrect, check if gender and age also match
+				// by default is UNSPECIFIED, so containsAge/Gender will be true
+				if (priority >= 2 // at least x number of characters matching
+				    &&
+				    containsAge(current.getRestrictions(), age)
 				    &&
 				    containsGender(current.getRestrictions(), gender)) {
 					searchedShelters.add(new ShelterPriority(current, priority));
 				}
 			}
-//			int priority = longestCommonSubsequenceLength(name, current.getName());
-//
-////			if (priority > 0 // name matches to with priority number of different characters
-////			    &&
-////			    containsAge(current.getRestrictions(), age) // age is correct
-////			    &&
-////			    containsGender(current.getRestrictions(), gender)) { // gender is correct
-////				// shelter is similar
-////				searchedShelters.add(new ShelterPriority(current, priority));
-////			}
-//			if (priority > 5) {
-//				searchedShelters.add(new ShelterPriority(current, priority));
-//			}
 		}
 
+		// Convert to generic List for consistency
 		ArrayList<Shelter> shelters = new ArrayList<>();
 		ShelterPriority[] PQShelters = searchedShelters.toArray(new ShelterPriority[0]);
 		for (int i = 0; i < PQShelters.length; i++) {
