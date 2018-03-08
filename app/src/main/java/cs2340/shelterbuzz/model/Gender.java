@@ -11,8 +11,8 @@ public enum Gender {
     UNSPECIFIED(""),
     MALE("Men", "Male"),
     FEMALE("Women", "Female"),
-    GENDER_FLUID("Gender Fluid"),
-    GENDER_NEUTRAL("Agender");
+    GENDER_FLUID("Fluid"),
+    GENDER_NEUTRAL("Agender", "Neutral");
 
 
     private final List<String> gender;
