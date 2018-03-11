@@ -10,6 +10,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import android.support.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -20,6 +28,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +41,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Pair;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -72,6 +83,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        /* mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -91,19 +104,61 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
+        */
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        /*Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
+        */
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        mAuth = FirebaseAuth.getInstance();
     }
 
+    public void onLoginAttempt(View view) {
+        String email = mEmailView.getText().toString();
+        String pass = mPasswordView.getText().toString();
+        mAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d("TEST", "Testing authetication");
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("SUCCESSS", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            showProgress(true);
+                            Intent MainActivityIntent = new Intent(getApplicationContext(),
+                                    MainActivity.class);
+                            startActivity(MainActivityIntent);
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("FAILURE", "signInWithEmail:failure", task.getException());
+                            /*
+                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                            */
+                        }
+
+                        // [START_EXCLUDE]
+                        /*
+                        if (!task.isSuccessful()) {
+                            mStatusTextView.setText(R.string.auth_failed);
+                        }
+                        */
+                        //hideProgressDialog();
+                        // [END_EXCLUDE]
+                    }
+                });
+
+    }
     public void onClick(View view) {
         if (mAuthTask != null) {
             mAuthTask.cancel(true);
@@ -163,6 +218,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+        Log.d("TRYING", "Attempting login.");
         if (mAuthTask != null) {
             return;
         }
@@ -196,6 +252,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         }
 
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            showProgress(true);
+                            Intent MainActivityIntent = new Intent(getApplicationContext(),
+                                    MainActivity.class);
+                            startActivity(MainActivityIntent);
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("FAILURE", "signInWithEmail:failure", task.getException());
+                            /*
+                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                            */
+                        }
+
+                        // [START_EXCLUDE]
+                        /*
+                        if (!task.isSuccessful()) {
+                            mStatusTextView.setText(R.string.auth_failed);
+                        }
+                        */
+                        //hideProgressDialog();
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END sign_in_with_email]
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -203,7 +294,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -364,6 +455,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent MainActivityIntent = new Intent(getApplicationContext(),
                         MainActivity.class);
                 startActivity(MainActivityIntent);
+
                 //finish();
             } else {
                 mPasswordView.setError("The password is invalid");
