@@ -33,8 +33,10 @@ public class ShelterDetailActivity extends Activity {
 
         Shelter shelter = (Shelter) getIntent().getParcelableExtra(EXTRA_SHELTER);
 
+        // use String.valueOf when passing in an int, or setText interprets as a
+        // Android resource ID
         name.setText(shelter.getName());
-        capacity.setText(shelter.getCapacity());
+        capacity.setText(String.valueOf(shelter.getCapacity())); 
         restrictions.setText(shelter.getRestrictions());
         address.setText(shelter.getAddress());
         specialNotes.setText(shelter.getSpecialNotes());

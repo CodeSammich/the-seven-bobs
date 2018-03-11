@@ -2,6 +2,8 @@ package cs2340.shelterbuzz.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Arrays;
+import android.util.Log;
 
 /**
  * Created by Sigma on 2/24/18.
@@ -10,7 +12,8 @@ import android.os.Parcelable;
 public class Shelter implements Parcelable {
 
     private String name;
-	private String capacity;
+	private int capacity;
+	private String capacityString; // original shelter requirement max input
 	private String restrictions; // parse for keywords, not standardized format
 	private double longitude;
 	private double latitude;
@@ -19,21 +22,23 @@ public class Shelter implements Parcelable {
 	private String phoneNumber;
 
 	public Shelter(Parcel in) {
-	    name = in.readString();
-	    capacity = in.readString();
-	    restrictions = in.readString();
-	    longitude = in.readDouble();
-	    latitude = in.readDouble();
-	    address = in.readString();
-	    specialNotes = in.readString();
-	    phoneNumber = in.readString();
+	    this.name = in.readString();
+	    this.capacity = in.readInt();
+	    this.capacityString = in.readString();
+	    this.restrictions = in.readString();
+	    this.longitude = in.readDouble();
+	    this.latitude = in.readDouble();
+	    this.address = in.readString();
+	    this.specialNotes = in.readString();
+	    this.phoneNumber = in.readString();
     }
 
 	public Shelter(String name, String capacity, String restrictions,
 	               double longitude, double latitude, String address,
 	               String specialNotes, String phoneNumber) {
-		this.name = name;
-		this.capacity = capacity;
+		this.name = name;		
+		this.capacity = this.sumPositiveIntsInString(capacity);
+		this.capacityString = capacity;
 		this.restrictions = restrictions;
 		this.longitude = longitude;
 		this.latitude = latitude;
@@ -45,7 +50,8 @@ public class Shelter implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 	    dest.writeString(name);
-	    dest.writeString(capacity);
+	    dest.writeInt(capacity);
+	    dest.writeString(capacityString); // not necessary, but just in case we need
         dest.writeString(restrictions);
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
@@ -54,6 +60,25 @@ public class Shelter implements Parcelable {
         dest.writeString(phoneNumber);
     }
 
+    /**
+     * Returns sum of integers in string
+     *
+     * @param str String
+     * @return sum of all available non-negative integers
+     */
+	public int sumPositiveIntsInString(String str) {
+		str = str.replaceAll("[^0-9]+", " ");  // replaces non-ints with spaces
+		String[] nums = str.trim().split(" "); // splits string and puts Strings of numbers into array
+
+		int sum = 0;
+		for (String num : nums) {
+			if (!num.equals("")) {
+				sum += Integer.parseInt(num);
+			}
+		}
+		return sum;
+	}
+	
     public static final Parcelable.Creator<Shelter>CREATOR = new Parcelable.Creator<Shelter>() {
 	    public Shelter createFromParcel(Parcel in) {
 	        return new Shelter(in);
@@ -72,12 +97,20 @@ public class Shelter implements Parcelable {
         this.name = name;
     }
 
-    public String getCapacity() {
-        return capacity;
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+	
+    public String getCapacityString() {
+        return capacityString;
     }
 
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
+    public void setCapacityString(String capacityString) {
+        this.capacityString = capacityString;
     }
 
     public String getRestrictions() {
