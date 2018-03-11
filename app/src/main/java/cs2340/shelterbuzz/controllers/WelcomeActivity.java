@@ -8,19 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import cs2340.shelterbuzz.R;
-import cs2340.shelterbuzz.controllers.LoginActivity;
-import cs2340.shelterbuzz.controllers.RegisterActivity;
-import cs2340.shelterbuzz.model.Age;
-import cs2340.shelterbuzz.model.Gender;
 import cs2340.shelterbuzz.model.Model;
-import cs2340.shelterbuzz.model.Shelter;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -62,23 +56,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         );
         readShelterData();
-        //button for testing the shelter view
-//        Button shitButton = findViewById(R.id.test);
-//        shitButton.setOnClickListener(new View.OnClickListener() {
-//                                              public void onClick(View v) {
-//                                                  Intent RegisterActivityIntent = new Intent(getApplicationContext(),
-//                                                          ShelterListActivity.class);
-//                                                  startActivity(RegisterActivityIntent);
-//                                              }
-//                                          }
-//
-//        );
-
-
-//        Model model = Model.getInstance();
-//        model.readCSV();
-//        Log.d("first line", model.getShelters().get(0).toString());
-
     }
 
     public void readShelterData() {
