@@ -9,12 +9,14 @@ import cs2340.shelterbuzz.model.UserType;
  * Created by tonyw on 2/24/2018.
  */
 
-public class HomelessPerson extends User{
+public class HomelessPerson extends User {
 
     private UserType userType = UserType.HOMELESSPERSON;
     private Gender gender;
     private boolean veteran;
     private int age;
+
+    private String checkedIn;
 
     //Constructor
     public HomelessPerson(String name, String user, String pass, int a, boolean v, Gender g) {
@@ -35,5 +37,13 @@ public class HomelessPerson extends User{
     }
     public int getAge() {
         return age;
+    }
+
+    public boolean isCheckedIn() {
+        return !checkedIn.equals("");
+    }
+
+    public void checkIn(String shelterName) {
+        checkedIn = shelterName;
     }
 }
