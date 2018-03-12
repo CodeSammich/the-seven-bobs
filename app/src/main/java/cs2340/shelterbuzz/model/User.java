@@ -1,7 +1,5 @@
 package cs2340.shelterbuzz.model;
 
-import android.util.Pair;
-
 /**
  * Created by tonyw on 2/24/2018.
  */
@@ -14,21 +12,19 @@ public abstract class User {
 
     private String pass;
 
+    public User(String name, String user, String pass) {
+        this.name = name;
+        this.username = user;
+        this.pass = pass;
+    }
+
     //getters and setters
     public String getName() {
         return name;
     }
 
-
     public void setName(String s) {
         this.name = s;
-    }
-
-
-    public User(String name, String user, String pass) {
-        this.name = name;
-        this.username = user;
-        this.pass = pass;
     }
 
     public String getUsername() {
