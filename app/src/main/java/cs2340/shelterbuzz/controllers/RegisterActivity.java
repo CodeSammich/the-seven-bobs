@@ -107,7 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
         User newuser = new HomelessPerson(name, userid, password, 25, false, Gender.FEMALE);
-        Model model = Model.getInstance();
 
         Model.getInstance().getAccounts().add(newuser);
         //Log.d("stuff", LoginActivity.credentials.get(0));
