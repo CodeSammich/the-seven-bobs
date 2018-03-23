@@ -2,8 +2,9 @@ package cs2340.shelterbuzz.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Arrays;
-import android.util.Log;
+import java.util.List;
+
+import com.google.firebase.database.Exclude;
 
 /**
  * Created by Sigma on 2/24/18.
@@ -14,37 +15,45 @@ public class Shelter implements Parcelable {
     private String name;
 	private int capacity;
 	private String capacityString; // original shelter requirement max input
-	private String restrictions; // parse for keywords, not standardized format
-	private double longitude;
-	private double latitude;
+	private String restrictionsString; // parse for keywords, not standardized format
+	private double lng;
+	private double lat;
 	private String address;
-	private String specialNotes;
-	private String phoneNumber;
+	private String notes;
+	private String phoneNum;
+
+    private List<Integer> restrictions;
+    private int remaining;
+
+    // No-args constructor required by Firebase
+    public Shelter() {
+
+    }
 
 	public Shelter(Parcel in) {
 	    this.name = in.readString();
 	    this.capacity = in.readInt();
 	    this.capacityString = in.readString();
-	    this.restrictions = in.readString();
-	    this.longitude = in.readDouble();
-	    this.latitude = in.readDouble();
+	    this.restrictionsString = in.readString();
+	    this.lng = in.readDouble();
+	    this.lat = in.readDouble();
 	    this.address = in.readString();
-	    this.specialNotes = in.readString();
-	    this.phoneNumber = in.readString();
+	    this.notes = in.readString();
+	    this.phoneNum = in.readString();
     }
 
-	public Shelter(String name, String capacity, String restrictions,
-	               double longitude, double latitude, String address,
-	               String specialNotes, String phoneNumber) {
+	public Shelter(String name, String capacity, String restrictionsString,
+	               double lng, double lat, String address,
+	               String notes, String phoneNum) {
 		this.name = name;		
 		this.capacity = this.sumPositiveIntsInString(capacity);
 		this.capacityString = capacity;
-		this.restrictions = restrictions;
-		this.longitude = longitude;
-		this.latitude = latitude;
+		this.restrictionsString = restrictionsString;
+		this.lng = lng;
+		this.lat = lat;
 		this.address = address;
-		this.specialNotes = specialNotes;
-		this.phoneNumber = phoneNumber;
+		this.notes = notes;
+		this.phoneNum = phoneNum;
 	}
 
     @Override
@@ -52,12 +61,12 @@ public class Shelter implements Parcelable {
 	    dest.writeString(name);
 	    dest.writeInt(capacity);
 	    dest.writeString(capacityString); // not necessary, but just in case we need
-        dest.writeString(restrictions);
-        dest.writeDouble(longitude);
-        dest.writeDouble(latitude);
+        dest.writeString(restrictionsString);
+        dest.writeDouble(lng);
+        dest.writeDouble(lat);
         dest.writeString(address);
-        dest.writeString(specialNotes);
-        dest.writeString(phoneNumber);
+        dest.writeString(notes);
+        dest.writeString(phoneNum);
     }
 
     /**
@@ -104,7 +113,8 @@ public class Shelter implements Parcelable {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	
+
+	@Exclude
     public String getCapacityString() {
         return capacityString;
     }
@@ -113,28 +123,28 @@ public class Shelter implements Parcelable {
         this.capacityString = capacityString;
     }
 
-    public String getRestrictions() {
-        return restrictions;
+    public String getRestrictionsString() {
+        return restrictionsString;
     }
 
-    public void setRestrictions(String restrictions) {
-        this.restrictions = restrictions;
+    public void setrestrictionsString(String restrictionsString) {
+        this.restrictionsString = restrictionsString;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public double getlng() {
+        return lng;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setlng(double lng) {
+        this.lng = lng;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public double getlat() {
+        return lat;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setlat(double lat) {
+        this.lat = lat;
     }
 
     public String getAddress() {
@@ -145,20 +155,20 @@ public class Shelter implements Parcelable {
         this.address = address;
     }
 
-    public String getSpecialNotes() {
-        return specialNotes;
+    public String getnotes() {
+        return notes;
     }
 
-    public void setSpecialNotes(String specialNotes) {
-        this.specialNotes = specialNotes;
+    public void setnotes(String notes) {
+        this.notes = notes;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getphoneNum() {
+        return phoneNum;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setphoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String toString() {
@@ -168,4 +178,21 @@ public class Shelter implements Parcelable {
     public String getName() {
         return name;
     }
+
+    public int getRemaining() {
+        return remaining;
+    }
+
+    public void setRemaining(int remaining) {
+        this.remaining = remaining;
+    }
+
+    public List<Integer> getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(List<Integer> restrictions) {
+        this.restrictions = restrictions;
+    }
+
 }

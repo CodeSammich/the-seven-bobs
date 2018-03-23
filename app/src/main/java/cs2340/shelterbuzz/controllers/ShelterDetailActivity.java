@@ -37,9 +37,9 @@ public class ShelterDetailActivity extends Activity {
         // Android resource ID
         name.setText(shelter.getName());
         capacity.setText(String.valueOf(shelter.getCapacity())); 
-        restrictions.setText(shelter.getRestrictions());
+        //restrictions.setText(shelter.getRestrictions());
         address.setText(shelter.getAddress());
-        specialNotes.setText(shelter.getSpecialNotes());
-        phoneNumber.setText(shelter.getPhoneNumber());
+        //specialNotes.setText(shelter.getSpecialNotes());
+        //phoneNumber.setText(shelter.getPhoneNumber());
     }
 }

@@ -4,25 +4,29 @@ package cs2340.shelterbuzz.model;
  * Created by tonyw on 2/24/2018.
  */
 
-public abstract class User {
-    //name of this user
+public class User {
+
+    public static final String[] USER_TYPES = {"homeless person", "admin", "shelter employee"};
+
     private String name;
-
     private String username;
+    private String userType;
 
-    private String pass;
+    // No-args constructor required by Firebase
+    public User() {
 
-    public User(String name, String user, String pass) {
+    }
+
+    public User(String name, String user, String userType) {
         this.name = name;
-        this.username = user;
-        this.pass = pass;
+        this.username = user.split("@")[0];
+        this.userType = userType;
     }
 
     //getters and setters
     public String getName() {
         return name;
     }
-
     public void setName(String s) {
         this.name = s;
     }
@@ -30,16 +34,11 @@ public abstract class User {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
+    public String getUserType() {
+        return userType;
     }
 }

@@ -22,25 +22,25 @@ public class ShelterListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        List<Shelter> shelters;
-        String shelterName = getIntent().getStringExtra("name");
-        // If start of this activity was a result of a search...
-        if (shelterName != null) {
-            // get shelters matching w/ user data
-            Gender g = (Gender) getIntent().getSerializableExtra("gender");
-            Age a = (Age) getIntent().getSerializableExtra("age");
-            shelters = Model.getInstance().getShelters(shelterName, a, g);
-        } else {
-            // else get every shelter
-            shelters = Model.getInstance().getShelters();
-        }
-
-        // Populate list view with shelters
-        ListAdapter listAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, shelters);
-        ListView listView = getListView();
-        listView.setAdapter(listAdapter);
+//
+//        List<Shelter> shelters;
+//        String shelterName = getIntent().getStringExtra("name");
+//        // If start of this activity was a result of a search...
+//        if (shelterName != null) {
+//            // get shelters matching w/ user data
+//            Gender g = (Gender) getIntent().getSerializableExtra("gender");
+//            Age a = (Age) getIntent().getSerializableExtra("age");
+//            //shelters = Model.getInstance().getShelters(shelterName, a, g);
+//        } else {
+//            // else get every shelter
+//            shelters = Model.getInstance().getShelters();
+//        }
+//
+//        // Populate list view with shelters
+//        ListAdapter listAdapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_list_item_1, shelters);
+//        ListView listView = getListView();
+//        listView.setAdapter(listAdapter);
     }
 
     @Override
