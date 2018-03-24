@@ -31,7 +31,7 @@
             android:layout_below="@+id/textView3"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint="Enter name"/>
 
         <TextView
             android:id="@+id/textView4"
@@ -51,7 +51,7 @@
             android:layout_below="@+id/textView4"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="User ID" />
+            android:hint="Enter user ID" />
 
         <TextView
             android:id="@+id/textView5"
@@ -71,7 +71,7 @@
             android:layout_below="@+id/textView5"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Password" />
+            android:hint="Enter password" />
 
         <Button
             android:id="@+id/confirmRegistration"

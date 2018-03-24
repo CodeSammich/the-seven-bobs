@@ -1,5 +1,8 @@
 package cs2340.shelterbuzz.model;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * Created by tonyw on 2/24/2018.
  */
@@ -12,6 +15,8 @@ public class User {
     private String username;
     private String userType;
 
+    private List<Integer> checkIn; // (shelterId, numBeds)
+
     // No-args constructor required by Firebase
     public User() {
 
@@ -21,24 +26,37 @@ public class User {
         this.name = name;
         this.username = user.split("@")[0];
         this.userType = userType;
+        this.checkIn = null;
+    }
+
+    public boolean isCheckedIn() {
+        return checkIn != null;
+    }
+
+    public boolean isCheckedIn(int shelterId) {
+        return checkIn != null && checkIn.get(0) == shelterId;
+    }
+
+    public void checkIn(int shelterId, int numBeds) {
+        checkIn = new ArrayList<>(2);
+        checkIn.add(shelterId);
+        checkIn.add(numBeds);
+    }
+
+    public void checkOut() {
+        checkIn = null;
     }
 
     //getters and setters
     public String getName() {
         return name;
     }
-    public void setName(String s) {
-        this.name = s;
-    }
 
     public String getUsername() {
         return username;
     }
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
-    public String getUserType() {
-        return userType;
+    public List<Integer> getCheckIn() {
+        return checkIn;
     }
 }

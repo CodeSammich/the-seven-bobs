@@ -1,36 +1,27 @@
 package cs2340.shelterbuzz.controllers;
 
+import cs2340.shelterbuzz.R;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import cs2340.shelterbuzz.R;
-import cs2340.shelterbuzz.model.Gender;
-import cs2340.shelterbuzz.model.HomelessPerson;
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.User;
-import cs2340.shelterbuzz.model.UserType;
-
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -53,11 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
         userIdField = (EditText) findViewById(R.id.userId);
         passwordField = (EditText) findViewById(R.id.password);
         accountType = (Spinner) findViewById(R.id.spinner);
-
-        // set default text, set to "" during deployment!!
-        nameField.setText("");
-        userIdField.setText("User");
-        passwordField.setText("Password");
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
                 User.USER_TYPES);
@@ -87,15 +73,15 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             //FirebaseUser user = auth.getCurrentUser();
                             User user = new User(name, userId, userType);
                             model.addUser(user);
+                            model.setCurrentUser(user.getUsername());
                             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign in fails, display a message to the user
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }

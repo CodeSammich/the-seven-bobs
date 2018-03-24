@@ -15,8 +15,6 @@ public class HomelessPerson extends User {
     private boolean veteran;
     private int age;
 
-    private String checkedIn;
-
     public HomelessPerson(String name, String user, int a, boolean v, Gender g) {
         super(name, user, "homeless person");
         age = a;
@@ -32,12 +30,5 @@ public class HomelessPerson extends User {
     }
     public int getAge() {
         return age;
-    }
-    public boolean isCheckedIn() {
-        return !checkedIn.equals("");
-    }
-
-    public void checkIn(String shelterName) {
-        checkedIn = shelterName;
     }
 }

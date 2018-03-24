@@ -6,6 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
@@ -18,6 +19,8 @@ public class UserManager {
 
     private Map<String, User> users;
     private DatabaseReference database;
+
+    private User currentUser;
 
     private UserManager() {
         users = new HashMap<>();
@@ -49,7 +52,25 @@ public class UserManager {
         database.child("users").child(user.getUsername()).setValue(user);
     }
 
+    public void checkIn(int shelterId, final int numBeds) {
+        currentUser.checkIn(shelterId, numBeds);
+        database.child("users").child(currentUser.getUsername()).setValue(currentUser);
+    }
+
+    public void checkOut() {
+        currentUser.checkOut();
+        database.child("users").child(currentUser.getUsername()).setValue(currentUser);
+    }
+
     public User get(String userId) {
         return users.get(userId);
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User u) {
+        currentUser = u;
     }
 }

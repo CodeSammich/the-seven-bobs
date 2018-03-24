@@ -6,21 +6,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class ShelterManager {
     private static final ShelterManager instance = new ShelterManager();
     private static final String TAG = "ShelterManager";
 
-    private List<Shelter> shelters;
+    private Map<Integer, Shelter> shelters;
+    private List<Shelter> sheltersList;
     private DatabaseReference database;
 
     private ShelterManager() {
-        shelters = new ArrayList<>();
+        shelters = new HashMap<>();
         database = FirebaseDatabase.getInstance().getReference();
 
         ValueEventListener sheltersListener = new ValueEventListener() {
@@ -28,8 +32,9 @@ public class ShelterManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Shelter shelter = snapshot.getValue(Shelter.class);
-                    shelters.add(shelter);
+                    shelters.put(shelter.getId(), shelter);
                 }
+                sheltersList = new ArrayList<>(shelters.values());
             }
 
             @Override
@@ -45,25 +50,67 @@ public class ShelterManager {
         return instance;
     }
 
-    public void add(Shelter shelter) {
-        instance.shelters.add(shelter);
-    }
-
     public List<Shelter> getAll() {
-        return shelters;
+        return sheltersList;
     }
 
-    public Shelter get(int i) {
-        return shelters.get(i);
+    public Shelter get(int id) {
+        return shelters.get(id);
+    }
+
+    public void checkIn(int shelterId, final int numBeds) {
+        final Shelter shelter = shelters.get(shelterId);
+        if (numBeds <= shelter.getRemaining()) {
+            Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            DatabaseReference ref = snapshot.getRef();
+                            ref.child("remaining").setValue(shelter.getRemaining() - numBeds);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, databaseError.getMessage());
+                }
+            });
+        } else {
+            throw new IllegalArgumentException("number of beds exceeds remaining capacity of beds");
+        }
+    }
+
+    public void checkOut(int shelterId, final int numBeds) {
+        final Shelter shelter = shelters.get(shelterId);
+        Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        DatabaseReference ref = snapshot.getRef();
+                        ref.child("remaining").setValue(shelter.getRemaining() + numBeds);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, databaseError.getMessage());
+            }
+        });
     }
 
     /**
-	 * Gets a list of shelters meeting search criteria sorted by search name accuracy
+	 * Gets a list of sheltersList meeting search criteria sorted by search name accuracy
 	 *
-	 * @param name String to find shelters with similar names
+	 * @param name String to find sheltersList with similar names
 	 * @param age Enum
 	 * @param gender Enum
-	 * @return list of Shelters ordered by accuracy
+	 * @return list of sheltersList ordered by accuracy
 	 */
 	public List<Shelter> searchShelters(String name, Age age, Gender gender) {
         PriorityQueue<ShelterPriority> searchedShelters = new PriorityQueue<>();
@@ -72,8 +119,8 @@ public class ShelterManager {
         // the search query and the shelter name
         if (name.equals("")) {
             // if no name field entered, just search by Age/Gender
-            for (int simple = 0; simple < this.shelters.size(); simple++) {
-                Shelter current = shelters.get(simple);
+            for (int simple = 0; simple < this.sheltersList.size(); simple++) {
+                Shelter current = sheltersList.get(simple);
                 if (containsAge(current.getRestrictionsString(), age)
                         &&
                         containsGender(current.getRestrictionsString(), gender)) {
@@ -84,8 +131,8 @@ public class ShelterManager {
         } else {
             // name field is not trivial, so prioritize by name
             String[] nameSplit = name.split(" ");
-            for (int i = 0; i < this.shelters.size(); i++) {
-                Shelter current = shelters.get(i);
+            for (int i = 0; i < this.sheltersList.size(); i++) {
+                Shelter current = sheltersList.get(i);
 
                 // Prioritize results by accuracy per word, "best matching word"
                 // number of characters matching b.t. search/shelter per word
@@ -125,12 +172,12 @@ public class ShelterManager {
         }
 
         // Convert PQ to generic List for consistency
-        ArrayList<Shelter> shelters = new ArrayList<>();
+        ArrayList<Shelter> sheltersList = new ArrayList<>();
         ShelterPriority[] PQShelters = searchedShelters.toArray(new ShelterPriority[0]);
         for (int i = 0; i < PQShelters.length; i++) {
-            shelters.add(PQShelters[i].getShelter());
+            sheltersList.add(PQShelters[i].getShelter());
         }
-        return shelters;
+        return sheltersList;
 	}
 
 
@@ -138,18 +185,18 @@ public class ShelterManager {
      * Dumb way to do search. We'll have to use this until searchShelters() is functioning
      * properly.
      *
-     * @param name String to find shelters with similar names
+     * @param name String to find sheltersList with similar names
      * @param age Enum
      * @param gender Enum
-     * @return list of Shelters that matches the search parameters
+     * @return list of sheltersList that matches the search parameters
      */
 	public List<Shelter> searchSheltersDumb(String name, Age age, Gender gender) {
         List<Shelter> searchedShelters = new ArrayList<>();
 
         if (name.equals("")) {
             // if no name field entered, just search by Age/Gender
-            for (int i = 0; i < shelters.size(); i++) {
-                Shelter current = shelters.get(i);
+            for (int i = 0; i < sheltersList.size(); i++) {
+                Shelter current = sheltersList.get(i);
                 if (containsAge(current.getRestrictionsString(), age)
                         &&
                         containsGender(current.getRestrictionsString(), gender)) {
@@ -157,8 +204,8 @@ public class ShelterManager {
                 }
             }
         } else {
-            for (int i = 0; i < shelters.size(); i++) {
-                Shelter current = shelters.get(i);
+            for (int i = 0; i < sheltersList.size(); i++) {
+                Shelter current = sheltersList.get(i);
                 if (current.getName().toLowerCase().equals(name.toLowerCase())) {
                     searchedShelters.add(current);
                 }
@@ -253,10 +300,10 @@ public class ShelterManager {
     }
 
     /**
-     * Helper class for filtering & searching shelters
+     * Helper class for filtering & searching sheltersList
      */
     private class ShelterPriority implements Comparable<ShelterPriority> {
-        /* Class to sort shelters by priority during search */
+        /* Class to sort sheltersList by priority during search */
         private Shelter shelter;
         private int priority;
 

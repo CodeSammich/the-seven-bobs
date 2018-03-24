@@ -1,6 +1,7 @@
 package cs2340.shelterbuzz.controllers;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -22,32 +23,35 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity {
 
-    // UI references
+    private Model model;
+
     private AutoCompleteTextView emailView;
     private EditText passwordView;
     private View progressView;
     private View loginFormView;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        model = Model.getInstance();
 
-        // Set up the login form.
+        // Set up the login form
         emailView = (AutoCompleteTextView) findViewById(R.id.email);
         passwordView = (EditText) findViewById(R.id.password);
         loginFormView = findViewById(R.id.login_form);
         progressView = findViewById(R.id.login_progress);
 
-        mAuth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
     public void onLoginAttempt(View view) {
@@ -62,16 +66,17 @@ public class LoginActivity extends Activity {
             passwordView.requestFocus();
         }
 
-        mAuth.signInWithEmailAndPassword(email, pass)
+        auth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("TEST", "Testing authetication");
 
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign in success
                             Log.d("SUCCESSS", "signInWithEmail:success");
-
+                            FirebaseUser user = auth.getCurrentUser();
+                            model.setCurrentUser(user.getEmail().split("@")[0]);
                             showProgress(true);
                             Intent MainActivityIntent = new Intent(getApplicationContext(),
                                     MainActivity.class);
