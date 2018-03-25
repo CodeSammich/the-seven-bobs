@@ -59,4 +59,8 @@ public class User {
     public List<Integer> getCheckIn() {
         return checkIn;
     }
+
+    public String getUserType() {
+        return userType;
+    }
 }
