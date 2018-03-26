@@ -46,7 +46,7 @@ public class Model {
 
 	public List<Shelter> searchShelters(String name, Age age, Gender gender) {
 	    // Change this when searchShelters() is functioning properly
-	    return shelterManager.searchSheltersDumb(name, age, gender);
+	    return shelterManager.searchShelters(name, age, gender);
     }
 
     public void checkIn(int shelterId, int numBeds) {

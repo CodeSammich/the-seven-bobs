@@ -161,7 +161,7 @@ public class ShelterManager {
 
                 // name incorrect, check if gender and age also match
                 // by default is UNSPECIFIED, so containsAge/Gender will be true
-                if (priority >= 2 // at least x number of characters matching
+                if (priority >= 5  // number of good chars
                         &&
                         containsAge(current.getRestrictionsString(), age)
                         &&
