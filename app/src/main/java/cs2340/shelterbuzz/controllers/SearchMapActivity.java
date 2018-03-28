@@ -63,5 +63,6 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
 	        cameraLocation = shelterLocation; 
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f)); // default zoom
     }
 }

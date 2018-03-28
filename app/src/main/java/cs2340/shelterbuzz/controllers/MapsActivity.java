@@ -60,5 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 	        cameraLocation = shelterLocation; 
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f)); // default zoom
     }
 }
