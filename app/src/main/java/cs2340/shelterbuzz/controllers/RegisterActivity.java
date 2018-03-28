@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                             User user = new User(name, userId, userType);
                             model.addUser(user);
                             model.setCurrentUser(user.getUsername());
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, WelcomeActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user

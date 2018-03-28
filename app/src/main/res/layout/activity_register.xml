@@ -40,7 +40,7 @@
             android:layout_alignStart="@+id/name"
             android:layout_below="@+id/name"
             android:layout_marginTop="17dp"
-            android:text="User ID" />
+            android:text="Email" />
 
         <EditText
             android:id="@+id/userId"
@@ -51,7 +51,7 @@
             android:layout_below="@+id/textView4"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Enter user ID" />
+            android:hint="Enter email" />
 
         <TextView
             android:id="@+id/textView5"
@@ -70,8 +70,9 @@
             android:layout_alignStart="@+id/textView5"
             android:layout_below="@+id/textView5"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:hint="Enter password" />
+        <!--android:inputType="textPersonName"-->
 
         <Button
             android:id="@+id/confirmRegistration"
