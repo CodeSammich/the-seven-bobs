@@ -18,6 +18,7 @@ import cs2340.shelterbuzz.model.Shelter;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,9 +66,8 @@ public class ShelterListActivity extends ListActivity {
 				public void onClick(View v) {
 					Intent searchMapActivityIntent =
 						new Intent(getApplicationContext(), SearchMapActivity.class);
-					Bundle args = new Bundle();
-					args.putSerializable("shelterList",(Serializable)shelters);
-					searchMapActivityIntent.putExtra("argsBundle", args);
+
+					searchMapActivityIntent.putExtra("shelterList", (ArrayList<Shelter>)shelters);
 					startActivity(searchMapActivityIntent);
 				}
 			}.init(shelters) ); // works because setOnClickListener expects listener

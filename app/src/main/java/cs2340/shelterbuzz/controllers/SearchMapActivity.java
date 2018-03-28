@@ -34,8 +34,7 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
         // receive the intent passed from ShelterListActivity from the new map button
         // and store it to searchResults. The map button assumes searchResults list is initialized
         Intent i = getIntent();
-        Bundle args = i.getBundleExtra("argsBundle");
-        this.searchResults = (List<Shelter>) args.getSerializable("shelterList");
+        this.searchResults = (List<Shelter>) i.getSerializableExtra("shelterList");
     }
 
     /**

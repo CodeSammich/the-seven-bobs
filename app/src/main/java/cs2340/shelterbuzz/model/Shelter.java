@@ -1,12 +1,13 @@
 package cs2340.shelterbuzz.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Sigma on 2/24/18.
  */
 
-public class Shelter {
+public class Shelter implements Serializable {
 
     private int id; // Unique id
     private String name;
