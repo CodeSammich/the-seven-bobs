@@ -1,4 +1,4 @@
-package cs2340.shelterbuzz.controllers;
+package cs2340.shelterbuzz;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -13,18 +13,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Shelter;
 import cs2340.shelterbuzz.model.ShelterManager;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SearchMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_search_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

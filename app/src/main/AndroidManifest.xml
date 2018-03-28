@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="false" />
@@ -64,7 +65,10 @@
 
         <activity
             android:name=".controllers.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".SearchMapActivity"
+            android:label="@string/title_activity_search_map"></activity>
     </application>
 
 </manifest>

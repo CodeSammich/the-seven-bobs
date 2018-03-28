@@ -106,5 +106,6 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_search_map">SearchMap</string>
     <!--<string name="title_activity_welcome">WelcomeActivity</string>-->
 </resources>
