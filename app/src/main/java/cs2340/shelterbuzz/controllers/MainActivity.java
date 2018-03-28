@@ -25,6 +25,18 @@ public class MainActivity extends AppCompatActivity {
             }}
 
         );
+
+        Button mapButton = findViewById(R.id.mapbutton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent MapActivityIntent = new Intent(getApplicationContext(),
+                        MapsActivity.class);
+                startActivity(MapActivityIntent);
+
+            }}
+
+        );
+
         Button listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
