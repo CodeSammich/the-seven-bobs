@@ -1,5 +1,6 @@
 package cs2340.shelterbuzz;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -32,8 +33,10 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
 
         // receive the intent passed from ShelterListActivity from the new map button
         // and store it to searchResults. The map button assumes searchResults list is initialized
+        Intent i = getIntent();
+        Bundle args = i.getBundleExtra("argsBundle");
+        this.searchResults = (List<Shelter>) args.getSerializable("shelterList");
     }
-
 
     /**
      * Manipulates the map once available.

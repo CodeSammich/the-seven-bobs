@@ -18,44 +18,40 @@ public class MainActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent WelcomeActivityIntent = new Intent(getApplicationContext(),
-                        WelcomeActivity.class);
+                Intent WelcomeActivityIntent =
+	                new Intent(getApplicationContext(), WelcomeActivity.class);
                 startActivity(WelcomeActivityIntent);
 
             }}
-
         );
 
         Button mapButton = findViewById(R.id.mapbutton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent MapActivityIntent = new Intent(getApplicationContext(),
-                        MapsActivity.class);
+                Intent MapActivityIntent =
+	                new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(MapActivityIntent);
 
             }}
-
         );
 
         Button listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent ShelterListActivityIntent = new Intent(getApplicationContext(),
-                        ShelterListActivity.class);
+                Intent ShelterListActivityIntent =
+	                new Intent(getApplicationContext(), ShelterListActivity.class);
                 startActivity(ShelterListActivityIntent);
-
             }}
-
         );
+        
         Button searchButton = findViewById(R.id.searchbutton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent SearchActivityIntent = new Intent(getApplicationContext(),
-                        SearchActivity.class);
+                Intent SearchActivityIntent =
+	                new Intent(getApplicationContext(), SearchActivity.class);
                 startActivity(SearchActivityIntent);
-
             }}
-
         );
+        
     }
 }
