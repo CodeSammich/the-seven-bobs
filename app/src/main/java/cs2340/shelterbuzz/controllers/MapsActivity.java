@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 	        // Add markers
 	        LatLng shelterLocation = new LatLng(shelter.getLat(), shelter.getLng());
 	        mMap.addMarker(new MarkerOptions().position(shelterLocation)
-	                       .title(shelter.getName() + "\n" + shelter.getPhoneNum()));
+	                       .title(shelter.getName() + " / " + shelter.getPhoneNum()));
 
 	        // set camera location to be last of the loaded shelters
 	        // set this to be user location later

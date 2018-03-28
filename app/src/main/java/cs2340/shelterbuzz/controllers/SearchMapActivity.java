@@ -19,6 +19,7 @@ import cs2340.shelterbuzz.model.ShelterManager;
 public class SearchMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+	private List<Shelter> searchResults = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,9 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // receive the intent passed from ShelterListActivity from the new map button
+        // and store it to searchResults. The map button assumes searchResults list is initialized
     }
 
 
@@ -44,15 +48,13 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        List<Shelter> shelters = ShelterManager.getInstance().getAll();
-
         List<LatLng> locations = new ArrayList<>();
         LatLng cameraLocation = new LatLng(33.7490, 84.3880); // Atlanta by default
-        for (Shelter shelter : shelters) {
+        for (Shelter shelter : searchResults) {
 	        // Add markers
 	        LatLng shelterLocation = new LatLng(shelter.getLat(), shelter.getLng());
 	        mMap.addMarker(new MarkerOptions().position(shelterLocation)
-	                       .title(shelter.getName() + "\n" + shelter.getPhoneNum()));
+	                       .title(shelter.getName() + " / " + shelter.getPhoneNum()));
 
 	        // set camera location to be last of the loaded shelters
 	        // set this to be user location later
