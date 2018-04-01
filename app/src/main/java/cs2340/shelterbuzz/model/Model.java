@@ -1,50 +1,62 @@
 package cs2340.shelterbuzz.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedList;
 
 /**
- * Created by tonyw on 2/24/2018.
- * Facade. Currently contains a List of registered users.
+ * Created by tonyw and Sigma on 2/24/2018.
+ * Facade
  */
-
 public class Model {
-    private static final Model _instance = new Model();
-    public static Model getInstance() { return _instance; }
+	private static final Model _instance = new Model();
 
-    private List<User> accounts;
-    private List<Shelter> shelters;
+	private ShelterManager shelterManager = ShelterManager.getInstance();
+	private UserManager userManager = UserManager.getInstance();
 
-    private Model() {
-        accounts = new ArrayList<>();
-        shelters = new ArrayList<>();
-    }
+	public static Model getInstance() { return _instance; }
 
-    public List<User> getAccounts() {
-        return accounts;
-    }
-
-    public boolean addUser(User u) {
-        for (User curr: accounts) {
-            if (curr.getName().equals(u.getName())
-                    && curr.getPass().equals(u.getPass())
-                    && curr.getUsername().equals(u.getUsername())) {
-                //returns false if duplicate user
-                return false;
-            }
-        }
-        accounts.add(u);
+	/**
+	 * Adds a user to the accounts list
+	 *
+	 * @param u user account
+	 * @return true if user added successfully, false otherwise
+	 */
+	public boolean addUser(User u) {
+        userManager.add(u);
         return true;
+	}
+
+    public User getCurrentUser() {
+        return userManager.getCurrentUser();
     }
 
-    public List<Shelter> getShelters() {
-        return shelters;
+    public void setCurrentUser(String userId) {
+        userManager.setCurrentUser(userManager.get(userId));
     }
 
-    public void addShelter(String name, String capacity, String restrictions, double longitude,
-                           double lattitude, String address, String specialNotes, String phoneNumber) {
-        shelters.add(new Shelter(name, capacity, restrictions,
-                longitude, lattitude, address, specialNotes, phoneNumber));
+	/**
+	 * Returns the complete list of shelters
+	 */
+	public List<Shelter> getAllShelters() {
+		return shelterManager.getAll();
+	}
+
+	public Shelter getShelter(int i) {
+		return shelterManager.get(i);
+	}
+
+	public List<Shelter> searchShelters(String name, Age age, Gender gender) {
+	    // Change this when searchShelters() is functioning properly
+	    return shelterManager.searchShelters(name, age, gender);
+    }
+
+    public void checkIn(int shelterId, int numBeds) {
+	    shelterManager.checkIn(shelterId, numBeds);
+	    userManager.checkIn(shelterId, numBeds);
+    }
+
+    public void checkout() {
+        List<Integer> checkIn = userManager.getCurrentUser().getCheckIn();
+	    shelterManager.checkOut(checkIn.get(0), checkIn.get(1));
+	    userManager.checkOut();
     }
 }

@@ -9,24 +9,19 @@ import cs2340.shelterbuzz.model.UserType;
  * Created by tonyw on 2/24/2018.
  */
 
-public class HomelessPerson extends User{
+public class HomelessPerson extends User {
 
-    private UserType userType = UserType.HOMELESSPERSON;
     private Gender gender;
     private boolean veteran;
     private int age;
 
-    //Constructor
-    public HomelessPerson(String name, String user, String pass, int a, boolean v, Gender g) {
-        super(name, user, pass);
+    public HomelessPerson(String name, String user, int a, boolean v, Gender g) {
+        super(name, user, "homeless person");
         age = a;
         veteran = v;
         gender = g;
     }
 
-    public UserType getUserType() {
-        return userType;
-    }
     public Gender getGender() {
         return gender;
     }

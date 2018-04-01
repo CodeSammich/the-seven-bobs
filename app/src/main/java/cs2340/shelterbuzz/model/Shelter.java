@@ -1,112 +1,77 @@
 package cs2340.shelterbuzz.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by Sigma on 2/24/18.
  */
 
-public class Shelter {
+public class Shelter implements Serializable {
+
+    private int id; // Unique id
     private String name;
-	private String capacity;
-	private String restrictions; // parse for keywords, not standardized format
-	private double longitude;
-	private double latitude;
+	private int capacity;
+	private String restrictionsString; // parse for keywords, not standardized format
+	private double lng;
+	private double lat;
 	private String address;
-	private String specialNotes;
-	private String phoneNumber;
-	
-	public Shelter() {
-		this.name = "";
-		this.capacity = "";
-		this.restrictions = "";
-		this.longitude = 0;
-		this.latitude = 0;
-		this.address = "";
-		this.specialNotes = "";
-		this.phoneNumber = "";
-	}
+	private String notes;
+	private String phoneNum;
 
-	public Shelter(String name, String capacity, String restrictions,
-	               double longitude, double latitude, String address,
-	               String specialNotes, String phoneNumber) {
-		this();
-		this.name = name;
-		this.capacity = capacity;
-		this.restrictions = restrictions;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.address = address;
-		this.specialNotes = specialNotes;
-		this.phoneNumber = phoneNumber;
-	}
+    private List<Integer> restrictions;
+    private int remaining;
 
-	    public String getName() {
+    // No-args constructor required by Firebase
+    public Shelter() {
+
+    }
+
+    public String getRestrictionsString() {
+        return restrictionsString;
+    }
+
+    public int getId() {
+	    return id;
+    }
+
+    public String getName() {
         return name;
     }
 
-	// Getter and Setters
-    public void setName(String name) {
-        this.name = name;
+    public double getLng() {
+        return lng;
     }
 
-    public String getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getRestrictions() {
-        return restrictions;
-    }
-
-    public void setRestrictions(String restrictions) {
-        this.restrictions = restrictions;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public double getLat() {
+        return lat;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getNotes() {
+        return notes;
     }
 
-    public String getSpecialNotes() {
-        return specialNotes;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setSpecialNotes(String specialNotes) {
-        this.specialNotes = specialNotes;
+    public int getRemaining() {
+        return remaining;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public List<Integer> getRestrictions() {
+        return restrictions;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public int getCapacity() {
+        return capacity;
     }
 
     public String toString() {
-	    return name + " Capacity: " + capacity + ", Restrictions: " + restrictions
-                + ", Longitude: " + longitude + ", Latitude: " + latitude + ", Address: "
-                + address + ", Phone number: " + phoneNumber;
+	    return name;
     }
 }

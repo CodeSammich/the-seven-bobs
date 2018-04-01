@@ -10,10 +10,12 @@ import java.util.Arrays;
  */
 
 public enum Age {
-    FAMILIES("Families", "Families w/", "Families with"),
-    CHILDREN("Children", "Childrens"),
-    TEENS("Young adults", "Young Adults", "Teenagers"),
-    ANYONE;
+    UNSPECIFIED(""),
+    FAMILIES("Families", "Families w/", "Families with", "Family"),
+    CHILDREN("Children", "Childrens", "Child", "Newborn"),
+    TEENS("Young adults", "Young Adults", "Teenagers", "Teens"),
+    VETERAN("Veterans", "Vet", "Veteran", "Military"),
+    ANYONE("Anyone", "Everyone", "All");
 
     private final List<String> age;
 

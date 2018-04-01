@@ -1,52 +1,86 @@
 package cs2340.shelterbuzz.controllers;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.SearchMapActivity;
+import cs2340.shelterbuzz.model.Age;
+import cs2340.shelterbuzz.model.Gender;
+import cs2340.shelterbuzz.model.Model;
+import cs2340.shelterbuzz.model.Shelter;
+
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs2340.shelterbuzz.R;
 
-public class ShelterListActivity extends AppCompatActivity {
+public class ShelterListActivity extends ListActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shelter_list);
+	private Model model;
 
-        ListView shelters = (ListView)findViewById(R.id.shelter_list);
-        //CODE BELOW WILL MAKE IT SO WHEN YOU CLICK ON A LIST ITEM, IT TAKES YOU TO DETAILS PAGE
-        shelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(getBaseContext(), ShelterDetailActivity.class);
-                startActivity(intent);
-            }
-        });
-        load();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_shelter_list);
 
+		model = Model.getInstance();
 
+		List<Shelter> shelters;
+		String shelterName = getIntent().getStringExtra("name");
+		// If start of this activity was a result of a search...
+		if (shelterName != null) {
+			// only get shelters that match w/ user parameters
+			Gender g = (Gender) getIntent().getSerializableExtra("gender");
+			Age a = (Age) getIntent().getSerializableExtra("age");
+			shelters = model.searchShelters(shelterName, a, g);
+		} else {
+			// else get every shelter
+			shelters = Model.getInstance().getAllShelters();
+		}
 
-    }
-    public void load() {
-        //just putting some dummy info
-        List<String> names = new ArrayList<>();
-        names.add("first item");
-        names.add("second item");
-        names.add("third item");
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, names);
-        ListView shelterList = (ListView) findViewById(R.id.shelter_list);
-        shelterList.setAdapter(listAdapter);
-    }
+		// Populate list view with shelters
+		ListAdapter listAdapter = new ArrayAdapter<>(this,
+		                                             android.R.layout.simple_list_item_1, shelters);
+		ListView listView = getListView();
+		listView.setAdapter(listAdapter);
+
+		// Map Button to switch to map with searched shelters as pins
+		Button mapViewButton = findViewById(R.id.MapButton);
+		mapViewButton.setOnClickListener(new View.OnClickListener() {
+				/* Another way to pass shelters into anon class without 
+				   declaring list to be final */
+				private List<Shelter> shelters;
+				private View.OnClickListener init(List<Shelter> list) {
+					shelters = list;
+					return this;
+				}
+				
+				public void onClick(View v) {
+					Intent searchMapActivityIntent =
+						new Intent(getApplicationContext(), SearchMapActivity.class);
+
+					searchMapActivityIntent.putExtra("shelterList", (ArrayList<Shelter>)shelters);
+					startActivity(searchMapActivityIntent);
+				}
+			}.init(shelters) ); // works because setOnClickListener expects listener
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		Intent intent = new Intent(this, ShelterDetailActivity.class);
+		// EXTRA_SHELTER is just a static final string, I do it like this
+		// to guarantee consistency across activities
+		intent.putExtra(ShelterDetailActivity.EXTRA_SHELTER,
+		                ((Shelter) getListView().
+		                 getItemAtPosition(position)).getId());
+		startActivity(intent);
+	}
 }
