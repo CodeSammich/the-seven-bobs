@@ -1,3 +1,5 @@
+package cs2340.shelterbuzz;
+
 import org.junit.Test;
 import org.junit.Before;
 
@@ -23,7 +25,7 @@ public class LCSTest {
 	@Before
 	public void setUp() {
 		manager = ShelterManager.getInstance();
-		// to get private method in our current class
+		// to get private method into our current class
 		try {
 			lcsMethod = manager.getClass().
 				getDeclaredMethod("longestCommonSubsequenceLength");
