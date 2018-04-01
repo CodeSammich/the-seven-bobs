@@ -254,6 +254,7 @@ public class ShelterManager {
             }
         }
 
+        // if no match, then 0
         return L[n][m];
     }
 
