@@ -7,11 +7,12 @@ package cs2340.shelterbuzz;
  *      FIREBASE: Code needed for Firebase simulation
  *      PRIVATE: Code needed to simulate private method calls
  *               e.g. if method being tested is not private, no need to use
- *      GENERAL: Generic JUnit code
+ *      GENERIC: Generic JUnit code
  *      
  *  You may need to replace certain parts to fit your particular test case
  */
 
+/* GENERIC */
 import org.junit.Test;
 import org.junit.Before;
 
@@ -22,6 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import cs2340.shelterbuzz.model.ShelterManager; // replace with your class
+/* END GENERIC */
 
 /* FIREBASE */
 import com.google.firebase.database.DatabaseReference;
@@ -101,6 +103,7 @@ public class LCSTest {
 		/* END PRIVATE */
 	}
 
+	/* GENERIC */
 	@Test(timeout = TIMEOUT)
 	public void testEmptyString()
 		throws InvocationTargetException, IllegalAccessException {
@@ -114,4 +117,5 @@ public class LCSTest {
 		// assertEquals(<expected result>, method.invoke(manager, <param>, <param>))
 		assertEquals(1, method.invoke(manager, "a", "abc"));
 	}
+	/* END GENERIC */
 }
