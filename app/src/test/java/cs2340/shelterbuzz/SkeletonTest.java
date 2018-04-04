@@ -96,7 +96,7 @@ public class SkeletonTest { // change class name along with file name
 			 */
 			method = manager.getClass().
 				getDeclaredMethod("<Insert Method Name Here>", String.class, String.class);
-			lcsMethod.setAccessible(true);
+			method.setAccessible(true);
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +108,7 @@ public class SkeletonTest { // change class name along with file name
 	public void testEmptyString()
 		throws InvocationTargetException, IllegalAccessException {
 		// assertEquals(<expected result>, method.invoke(manager, <param>, <param>))
-		assertEquals(0, lcsMethod.invoke(manager, "", ""));
+		assertEquals(0, method.invoke(manager, "", ""));
 	}
 
 	@Test(timeout = TIMEOUT)
