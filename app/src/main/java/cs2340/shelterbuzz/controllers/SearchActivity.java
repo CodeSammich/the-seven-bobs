@@ -43,6 +43,10 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Searches shelters when user presses search button
+     * @param view search button
+     */
     public void onSearchPressed(View view) {
         String name = nameField.getText().toString();
         Gender g = (Gender) gender.getSelectedItem();

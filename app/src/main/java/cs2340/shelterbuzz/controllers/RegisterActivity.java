@@ -55,11 +55,19 @@ public class RegisterActivity extends AppCompatActivity {
         model = Model.getInstance();
     }
 
+    /**
+     * Cancels registration when user presses the cancel button
+     * @param view cancel button
+     */
     public void onCancelPressed(View view) {
         Intent intent = new Intent(RegisterActivity.this, WelcomeActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Confirms registration when user presses the cancel button
+     * @param view confirm button
+     */
     public void onConfirmPressed(View view) {
         // Need to be final to be accessed from inner classes for some reason
         final String name = nameField.getText().toString();
