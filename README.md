@@ -7,7 +7,7 @@
 
 |                                       |   **Member**   |                   **GitHub**                 |            **Role**            |
 |---------------------------------------|:--------------:|:--------------------------------------------:|:------------------------------:|
-| <img src="readme_res/yeji.jpg" width="100" height="100" /> | Yeji Kim  |[`@ykim0113`](https://github.com/ykim0113)            | Frontend |
+| <img src="readme_res/yeji.jpg" width="100" height="100" /> | Yeji Kim  |[`@ykim0113`](https://github.com/ykim0113)            | Frontend, UI/UX |
 | <img src="readme_res/shannon.jpg" width="100" height="100" /> | Shannon Ke   |[`@Shannon-Ke`](https://github.com/Shannon-Ke)   | Frontend |
 | <img src="readme_res/samuel.jpg" width="100" height="100" /> | Samuel Zhang |[`@CodeSammich`](https://github.com/CodeSammich)  | Backend |
 | <img src="readme_res/youn.jpg" width="100" height="100" /> | Younmin Bae    |[`@youn123`](https://github.com/youn123)| Backend |
