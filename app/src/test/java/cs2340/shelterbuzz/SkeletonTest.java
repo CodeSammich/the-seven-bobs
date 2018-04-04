@@ -54,7 +54,7 @@ import java.lang.IllegalAccessException;
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({ FirebaseDatabase.class})
 /* END FIREBASE */
-public class LCSTest {
+public class SkeletonTest { // change class name along with file name
 	private ShelterManager manager;
 
 	/* FIREBASE */
