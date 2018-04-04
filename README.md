@@ -1,7 +1,7 @@
 # CS 2340 Spring 2018: Homeless Shelter Android App
 
-## Helps homeless people with a basic Android phone search nearby homeless shelters, check-in, and reserve rooms.
-## Users may search by different filters like gender, age, and name.
+ Helps homeless people with a basic Android phone search nearby homeless shelters, check-in, and reserve rooms.
+ Users may search by different filters like gender, age, and name.
 
 ## Contributors:
 
