@@ -58,7 +58,7 @@ public class ShelterManager {
         return shelters.get(id);
     }
 
-    public void checkIn(int shelterId, final int numBeds) {
+    public void checkIn(Integer shelterId, final Integer numBeds) {
         final Shelter shelter = shelters.get(shelterId);
         if (numBeds <= shelter.getRemaining()) {
             Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);

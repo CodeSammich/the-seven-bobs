@@ -27,6 +27,20 @@ public class Shelter implements Serializable {
 
     }
 
+    public Shelter(int id, String name, int capacity, String restrictionsString,
+                   double lng, double lat, String address, String notes, String phoneNum) {
+        this.id = id;
+        this.name = name;
+        this.capacity = capacity;
+        this.restrictionsString = restrictionsString;
+        this.lng = lng;
+        this.lat = lat;
+        this.address = address;
+        this.notes = notes;
+        this.phoneNum = phoneNum;
+        this.remaining = capacity;
+    }
+
     /**
      * Gets string representation of the restrictions of the shelter
      *
