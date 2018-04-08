@@ -10,7 +10,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import cs2340.shelterbuzz.R;
-import cs2340.shelterbuzz.SearchMapActivity;
+import cs2340.shelterbuzz.controllers.SearchMapActivity;
 import cs2340.shelterbuzz.model.Age;
 import cs2340.shelterbuzz.model.Gender;
 import cs2340.shelterbuzz.model.Model;
