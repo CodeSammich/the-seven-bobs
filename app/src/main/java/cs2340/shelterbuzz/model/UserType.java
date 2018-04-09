@@ -1,9 +1,10 @@
 package cs2340.shelterbuzz.model;
 
-/**
- * Created by tonyw on 2/24/2018.
- */
 
+/**
+ * enum with the types of possible users
+ * users can choose what type they are when they register in the app for an account
+ */
 public enum UserType {
     HOMELESSPERSON, ADMIN, SHELTEREMPLOYEE
 };

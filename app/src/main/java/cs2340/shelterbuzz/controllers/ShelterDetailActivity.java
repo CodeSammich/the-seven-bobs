@@ -13,6 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ *
+ * An activity class that holds UI elements from the shelter detail activity xml so that they can be
+ * updated with the information on whichever shelter was selected. This is just one activity
+ * that changes according to passed in shelter data to the methods, which is then used to update
+ * the UI fields on the xml.
+ *
+ */
 public class ShelterDetailActivity extends Activity {
 
     public static final String EXTRA_SHELTER = "shelterNo";
@@ -35,18 +43,31 @@ public class ShelterDetailActivity extends Activity {
         setContentView(R.layout.activity_shelter_detail);
         model = Model.getInstance();
 
-        name = (TextView) findViewById(R.id.name);
-        capacity = (TextView) findViewById(R.id.capacity);
-        restrictions = (TextView) findViewById(R.id.restrictions);
-        address = (TextView) findViewById(R.id.address);
-        specialNotes = (TextView) findViewById(R.id.notes);
-        phoneNumber = (TextView) findViewById(R.id.phone);
-        numRoomInput = (EditText) findViewById(R.id.numRoomInput);
-        checkInButton = (Button) findViewById(R.id.checkinButton);
+        name = findViewById(R.id.name);
+        capacity = findViewById(R.id.capacity);
+        restrictions = findViewById(R.id.restrictions);
+        address = findViewById(R.id.address);
+        specialNotes = findViewById(R.id.notes);
+        phoneNumber = findViewById(R.id.phone);
+        numRoomInput = findViewById(R.id.numRoomInput);
+        checkInButton = findViewById(R.id.checkinButton);
 
         updateUI();
     }
 
+    /**
+     * A method that takes in a view which is the button that was clicked, in this case
+     * the check in button. It allows users to check into a shelter in the shelter detail activity
+     * by calling the check in and check out methods in the model.
+     *
+     * It also gives users a pop up stating if their check in or check out was successful, or if
+     * an invalid field was entered, then an error message pops up.
+     *
+     * Finally, the method gives time for firebase to update with the check in data before updating
+     * the UI with the user's check in or out.
+     *
+     * @param view the button that is connected to the handler, which is check in
+     */
     public void onCheckInPressed(View view) {
         try {
             if (model.getCurrentUser().isCheckedIn(shelterId)) {
@@ -74,6 +95,14 @@ public class ShelterDetailActivity extends Activity {
         }
     }
 
+    /**
+     * This method gets the shelter that is to be rendered and loads all of the shelter data into
+     * the respective text fields in the detail activity xml. If the user using the app is not
+     * currently checked in, then the user will have an option to input bed numbers and click the
+     * check in button.
+     * If the user is already checked in, then the user will be able to click the button with
+     * the updated phrase "checkout"
+     */
     public void updateUI() {
         shelterId = getIntent().getIntExtra(EXTRA_SHELTER, -1);
         Shelter shelter = model.getShelter(shelterId);

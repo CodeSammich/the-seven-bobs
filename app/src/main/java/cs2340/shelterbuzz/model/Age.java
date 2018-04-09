@@ -23,6 +23,10 @@ public enum Age {
         this.age = Arrays.asList(keywords);
     }
 
+    /**
+     * Returns a list of the possible String values of the enum.
+     * @return List of possible String values of the enum.
+     */
     public List<String> getValue() {
         return age;
     }
@@ -30,8 +34,8 @@ public enum Age {
     /**
      * Gets the enum constant of the value it is associated with
      * @param word age restriction keyword
-     * @return range enum constant according to the string value
-     * @return null if no matches are found, return null
+     * @return range enum constant according to the string value.
+     * If no matches are found, return null.
      */
     public static Age enumOf(String word) {
         for (Age age : values()) {

@@ -15,6 +15,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
+/**
+ * Handles everything that needs to be done with altering shelters or filtering shelters, including
+ * check in, checkout, search, and firebase updates.
+ */
+
 public class ShelterManager {
     private static final ShelterManager instance = new ShelterManager();
     private static final String TAG = "ShelterManager";
@@ -46,19 +51,42 @@ public class ShelterManager {
         database.child("shelters").addValueEventListener(sheltersListener);
     }
 
+    /**
+     * returns an instance of a shelter manager
+     * @return instance of a shelter manager
+     */
     public static final ShelterManager getInstance() {
         return instance;
     }
 
+    /**
+     * gets a list of shelters to pass into the listview
+     * @return list of shelters
+     */
     public List<Shelter> getAll() {
         return sheltersList;
     }
 
+    /**
+     * gets a shelter based on shelter id
+     * @param id the passed in int ID
+     * @return the shelter associated with the passed in ID
+     */
     public Shelter get(int id) {
         return shelters.get(id);
     }
 
-    public void checkIn(int shelterId, final int numBeds) {
+
+    /**
+     * takes in a shelter ID and the number of beds entered by the user
+     * and checks the user in by making calls to the database to receive the number of
+     * available beds and updates it based on user input
+     *
+     * @param shelterId the ID of the shelter being checked into
+     * @param numBeds the number of beds the user is checking out
+     */
+
+    public void checkIn(Integer shelterId, final Integer numBeds) {
         final Shelter shelter = shelters.get(shelterId);
         if (numBeds <= shelter.getRemaining()) {
             Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
@@ -83,6 +111,13 @@ public class ShelterManager {
         }
     }
 
+    /**
+     * similar to the check in method, but checking out beds instead. The user does not
+     * input number of beds here.
+     *
+     * @param shelterId the id of the shelter being altered
+     * @param numBeds the number of beds being checked out
+     */
     public void checkOut(int shelterId, final int numBeds) {
         final Shelter shelter = shelters.get(shelterId);
         Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
@@ -148,7 +183,8 @@ public class ShelterManager {
                             currPriority += 100;
                         } else {
                             // find the most accurate word
-                            int temp = longestCommonSubsequenceLength(nameSplit[j], shelterNameSplit[k]);
+                            int temp = longestCommonSubsequenceLength(nameSplit[j],
+                                    shelterNameSplit[k]);
                             if (temp > currPriority) {
                                 currPriority = temp;
                             }
@@ -225,13 +261,33 @@ public class ShelterManager {
      */
     private int longestCommonSubsequenceLength(String s1, String s2) {
         // DP solution for LCS, slightly modified from 3510 notes
-        // since we start at x_0 rather than x_1
+	    // assume we start from x_1 ... x_n, and y_1 ... y_m
         if (s1.equals("") || s2.equals("")) {
             return 0;
         }
 
-        int n = s1.length() - 1;
-        int m = s2.length() - 1;
+        // x_n is the last char, y_m is the last char
+        int n = s1.length();
+        int m = s2.length();
+
+        // convert s1 and s2 to start from x_1 and y_1 (first indices)
+        // index 0 will just be a '_' placeholder and be ignored
+        StringBuilder shifted_s1 = new StringBuilder(n + 1);
+        StringBuilder shifted_s2 = new StringBuilder(m + 1);
+
+        shifted_s1.append('_');
+        for (char c : s1.toCharArray()) {
+	        shifted_s1.append(c);
+        }
+
+        shifted_s2.append('_');
+        for (char c : s2.toCharArray()) {
+	        shifted_s2.append(c);
+        }
+
+        // update the strings to include placeholder '_' char
+        s1 = shifted_s1.toString();
+        s2 = shifted_s2.toString();
 
         // L = max length of LCS between s1_1 -> s1_n and s2_1 -> s2_m
         int[][] L = new int[n+1][m+1];
@@ -245,8 +301,7 @@ public class ShelterManager {
 
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
-                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
-                    // charAt(i-1) and charAt(j-1) is the same as x_i and y_j
+	            if (s1.charAt(i) == s2.charAt(j)) { // charAt(1) starts at x_1, so placeholder ignored
                     L[i][j] = 1 + L[i-1][j-1];
                 } else {
                     L[i][j] = Math.max(L[i-1][j], L[i][j-1]);

@@ -1,4 +1,4 @@
-package cs2340.shelterbuzz;
+package cs2340.shelterbuzz.controllers;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Shelter;
 import cs2340.shelterbuzz.model.ShelterManager;
 
@@ -63,6 +64,7 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
 	        cameraLocation = shelterLocation; 
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f)); // default zoom
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f));
+        //default zoom
     }
 }

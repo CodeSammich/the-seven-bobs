@@ -46,14 +46,18 @@ public class LoginActivity extends Activity {
         model = Model.getInstance();
 
         // Set up the login form
-        emailView = (AutoCompleteTextView) findViewById(R.id.email);
-        passwordView = (EditText) findViewById(R.id.password);
+        emailView = findViewById(R.id.email);
+        passwordView = findViewById(R.id.password);
         loginFormView = findViewById(R.id.login_form);
         progressView = findViewById(R.id.login_progress);
 
         auth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Runs when the user presses the "Login" button.
+     * @param view the button that onLoginAttempt is tied to.
+     */
     public void onLoginAttempt(View view) {
         String email = emailView.getText().toString();
         String pass = passwordView.getText().toString();
