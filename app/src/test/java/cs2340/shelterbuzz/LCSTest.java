@@ -48,10 +48,14 @@ public class LCSTest {
     public static final int TIMEOUT = 200; // 200ms
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * Method used for setting up the mock Firebase and reference to the LCS method needed
      * for the JUnits tests.
      */
+=======
+
+>>>>>>> abd6d313af818df578216989e82db10fdf604379
 =======
 
 >>>>>>> abd6d313af818df578216989e82db10fdf604379
