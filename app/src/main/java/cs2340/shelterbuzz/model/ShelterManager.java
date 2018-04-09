@@ -76,6 +76,7 @@ public class ShelterManager {
         return shelters.get(id);
     }
 
+<<<<<<< HEAD
     /**
      * takes in a shelter ID and the number of beds entered by the user
      * and checks the user in by making calls to the database to receive the number of
@@ -85,6 +86,9 @@ public class ShelterManager {
      * @param numBeds the number of beds the user is checking out
      */
     public void checkIn(int shelterId, final int numBeds) {
+=======
+    public void checkIn(Integer shelterId, final Integer numBeds) {
+>>>>>>> origin/master
         final Shelter shelter = shelters.get(shelterId);
         if (numBeds <= shelter.getRemaining()) {
             Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
@@ -259,13 +263,33 @@ public class ShelterManager {
      */
     private int longestCommonSubsequenceLength(String s1, String s2) {
         // DP solution for LCS, slightly modified from 3510 notes
-        // since we start at x_0 rather than x_1
+	    // assume we start from x_1 ... x_n, and y_1 ... y_m
         if (s1.equals("") || s2.equals("")) {
             return 0;
         }
 
-        int n = s1.length() - 1;
-        int m = s2.length() - 1;
+        // x_n is the last char, y_m is the last char
+        int n = s1.length();
+        int m = s2.length();
+
+        // convert s1 and s2 to start from x_1 and y_1 (first indices)
+        // index 0 will just be a '_' placeholder and be ignored
+        StringBuilder shifted_s1 = new StringBuilder(n + 1);
+        StringBuilder shifted_s2 = new StringBuilder(m + 1);
+
+        shifted_s1.append('_');
+        for (char c : s1.toCharArray()) {
+	        shifted_s1.append(c);
+        }
+
+        shifted_s2.append('_');
+        for (char c : s2.toCharArray()) {
+	        shifted_s2.append(c);
+        }
+
+        // update the strings to include placeholder '_' char
+        s1 = shifted_s1.toString();
+        s2 = shifted_s2.toString();
 
         // L = max length of LCS between s1_1 -> s1_n and s2_1 -> s2_m
         int[][] L = new int[n+1][m+1];
@@ -279,8 +303,7 @@ public class ShelterManager {
 
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
-                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
-                    // charAt(i-1) and charAt(j-1) is the same as x_i and y_j
+	            if (s1.charAt(i) == s2.charAt(j)) { // charAt(1) starts at x_1, so placeholder ignored
                     L[i][j] = 1 + L[i-1][j-1];
                 } else {
                     L[i][j] = Math.max(L[i-1][j], L[i][j-1]);

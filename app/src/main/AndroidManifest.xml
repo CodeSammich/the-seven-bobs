@@ -70,7 +70,7 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".SearchMapActivity"
-            android:label="@string/title_activity_search_map"></activity>
+            android:label="SearchMapActivity"></activity>
     </application>
 
 </manifest>

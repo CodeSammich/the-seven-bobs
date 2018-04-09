@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Shelter;
 import cs2340.shelterbuzz.model.ShelterManager;
 
