@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * The welcome activity contains the first screen that pops up, which includes
+ * the login button and the register button and the logo
+ */
 public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "WelcomeActivity";
 

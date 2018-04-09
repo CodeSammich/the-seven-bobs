@@ -46,7 +46,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".controllers.ShelterDetailActivity" />
-        <activity android:name=".controllers.userRegister" />
         <activity
             android:name=".controllers.SearchActivity"
             android:label="@string/title_activity_main2"
