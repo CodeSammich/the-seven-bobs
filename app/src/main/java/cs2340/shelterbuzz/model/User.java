@@ -3,9 +3,7 @@ package cs2340.shelterbuzz.model;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * Created by tonyw on 2/24/2018.
- */
+
 
 public class User {
 

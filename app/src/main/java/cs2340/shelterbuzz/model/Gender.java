@@ -3,9 +3,6 @@ package cs2340.shelterbuzz.model;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by tonyw on 2/24/2018.
- */
 
 public enum Gender {
     UNSPECIFIED(""),

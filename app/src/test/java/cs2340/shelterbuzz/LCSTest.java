@@ -20,7 +20,7 @@ public class LCSTest {
 	private ShelterManager manager;
 	private Method lcsMethod;
 
-	public static final int TIMEOUT = 200; // 200ms
+	private static final int TIMEOUT = 200; // 200ms
 
 	@Before
 	public void setUp() {

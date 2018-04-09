@@ -5,9 +5,7 @@ import cs2340.shelterbuzz.model.Gender;
 import cs2340.shelterbuzz.model.User;
 import cs2340.shelterbuzz.model.UserType;
 
-/**
- * Created by tonyw on 2/24/2018.
- */
+
 
 public class HomelessPerson extends User {
 
