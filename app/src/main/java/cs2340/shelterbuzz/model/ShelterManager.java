@@ -76,7 +76,7 @@ public class ShelterManager {
         return shelters.get(id);
     }
 
-<<<<<<< HEAD
+
     /**
      * takes in a shelter ID and the number of beds entered by the user
      * and checks the user in by making calls to the database to receive the number of
@@ -85,10 +85,8 @@ public class ShelterManager {
      * @param shelterId the ID of the shelter being checked into
      * @param numBeds the number of beds the user is checking out
      */
-    public void checkIn(int shelterId, final int numBeds) {
-=======
+
     public void checkIn(Integer shelterId, final Integer numBeds) {
->>>>>>> origin/master
         final Shelter shelter = shelters.get(shelterId);
         if (numBeds <= shelter.getRemaining()) {
             Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
