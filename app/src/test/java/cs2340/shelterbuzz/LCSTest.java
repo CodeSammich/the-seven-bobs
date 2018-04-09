@@ -29,7 +29,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-
+/**
+ * JUnits tests for ShelterManager's longestCommonSubSequence method for parsing strings
+ * @author Samuel Zhang
+ * @version 1.0
+ */
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({ FirebaseDatabase.class})
@@ -37,11 +41,20 @@ public class LCSTest {
 	private ShelterManager manager;
 	private Method lcsMethod;
 
+
 	@Mock
 	private DatabaseReference mockedDatabaseReference;
 
     public static final int TIMEOUT = 200; // 200ms
 
+<<<<<<< HEAD
+    /**
+     * Method used for setting up the mock Firebase and reference to the LCS method needed
+     * for the JUnits tests.
+     */
+=======
+
+>>>>>>> abd6d313af818df578216989e82db10fdf604379
 	@Before
 	public void setUp() {
         // mock Firebase for JUnit static method test in create manager
@@ -68,12 +81,23 @@ public class LCSTest {
 		}
 	}
 
+    /**
+     * Test that will check find the LCS of an empty string to another empty string.
+     * @throws IllegalAccessException if test does not have access to the method being invoked
+     * @throws InvocationTargetException when invoking a private method throws an exception
+     */
 	@Test(timeout = TIMEOUT)
 	public void testEmptyString()
 		throws InvocationTargetException, IllegalAccessException {
 		assertEquals(0, lcsMethod.invoke(manager, "", ""));
 	}
 
+    /**
+     * Test that will test strings that do contain the other string passed in.
+     * In other words, methods should all return ints greater than 0.
+     * @throws IllegalAccessException if test does not have access to the method being invoked
+     * @throws InvocationTargetException when invoking a private method throws an exception
+     */
 	@Test(timeout = TIMEOUT)
 	public void testSubsequenceIsThere()
 		throws InvocationTargetException, IllegalAccessException {
@@ -97,6 +121,12 @@ public class LCSTest {
 		assertEquals(3, lcsMethod.invoke(manager, "abc", "abc"));
 	}
 
+    /**
+     * Test that will test strings that do not contain the other string passed in.
+     * In other words, all the LCS method calls should return 0, because there is no LCS.
+     * @throws IllegalAccessException if test does not have access to the method being invoked
+     * @throws InvocationTargetException when invoking a private method throws an exception
+     */
 	@Test(timeout= TIMEOUT)
 	public void testSubsequenceIsNotThere()
 		throws InvocationTargetException, IllegalAccessException {

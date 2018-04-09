@@ -15,6 +15,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
+/**
+ * Handles everything that needs to be done with altering shelters or filtering shelters, including
+ * check in, checkout, search, and firebase updates.
+ */
+
 public class ShelterManager {
     private static final ShelterManager instance = new ShelterManager();
     private static final String TAG = "ShelterManager";
@@ -46,17 +51,40 @@ public class ShelterManager {
         database.child("shelters").addValueEventListener(sheltersListener);
     }
 
+    /**
+     * returns an instance of a shelter manager
+     * @return instance of a shelter manager
+     */
     public static final ShelterManager getInstance() {
         return instance;
     }
 
+    /**
+     * gets a list of shelters to pass into the listview
+     * @return list of shelters
+     */
     public List<Shelter> getAll() {
         return sheltersList;
     }
 
+    /**
+     * gets a shelter based on shelter id
+     * @param id the passed in int ID
+     * @return the shelter associated with the passed in ID
+     */
     public Shelter get(int id) {
         return shelters.get(id);
     }
+
+
+    /**
+     * takes in a shelter ID and the number of beds entered by the user
+     * and checks the user in by making calls to the database to receive the number of
+     * available beds and updates it based on user input
+     *
+     * @param shelterId the ID of the shelter being checked into
+     * @param numBeds the number of beds the user is checking out
+     */
 
     public void checkIn(Integer shelterId, final Integer numBeds) {
         final Shelter shelter = shelters.get(shelterId);
@@ -83,6 +111,13 @@ public class ShelterManager {
         }
     }
 
+    /**
+     * similar to the check in method, but checking out beds instead. The user does not
+     * input number of beds here.
+     *
+     * @param shelterId the id of the shelter being altered
+     * @param numBeds the number of beds being checked out
+     */
     public void checkOut(int shelterId, final int numBeds) {
         final Shelter shelter = shelters.get(shelterId);
         Query query = database.child("shelters").orderByChild("id").equalTo(shelterId);
@@ -148,7 +183,8 @@ public class ShelterManager {
                             currPriority += 100;
                         } else {
                             // find the most accurate word
-                            int temp = longestCommonSubsequenceLength(nameSplit[j], shelterNameSplit[k]);
+                            int temp = longestCommonSubsequenceLength(nameSplit[j],
+                                    shelterNameSplit[k]);
                             if (temp > currPriority) {
                                 currPriority = temp;
                             }

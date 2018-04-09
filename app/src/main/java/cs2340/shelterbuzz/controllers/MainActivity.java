@@ -8,6 +8,11 @@ import android.widget.Button;
 
 import cs2340.shelterbuzz.R;
 
+/**
+ * The activity for the main menu of the app. From here, the user can log out,
+ * view the Google Map of all the shelters, browse the list of all shelters, or
+ * filter out shelters in a search.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

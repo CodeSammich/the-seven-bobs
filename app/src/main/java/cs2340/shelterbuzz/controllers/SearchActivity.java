@@ -26,18 +26,20 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main2);
 
-        nameField = (EditText) findViewById(R.id.nameFieldSearch);
-        gender = (Spinner) findViewById(R.id.spinner3);
-        age = (Spinner) findViewById(R.id.spinner4);
+        nameField = findViewById(R.id.nameFieldSearch);
+        gender = findViewById(R.id.spinner3);
+        age = findViewById(R.id.spinner4);
 
         // set default text to empty
         nameField.setText("");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Gender.values());
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter(this,android.R.layout.simple_spinner_item, Gender.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Age.values());
+        ArrayAdapter<String> adapter2 =
+                new ArrayAdapter(this,android.R.layout.simple_spinner_item, Age.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         age.setAdapter(adapter2);
 

@@ -21,7 +21,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The controller for the shelter list activity view. This includes populating the list view with
+ * all of the shelters as a list by iterating through and adding them. It also handles if
+ * a search was performed, in which case it will call the searchShelter method to return a
+ * filtered list of shelters to populate the activity with.
+ * Finally, it has a method that allows users to click on a shelter in the list view and have
+ * the shelter details pop up.
+ */
 public class ShelterListActivity extends ListActivity {
 
 	private Model model;

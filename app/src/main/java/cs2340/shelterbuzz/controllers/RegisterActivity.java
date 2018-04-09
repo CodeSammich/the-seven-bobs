@@ -40,10 +40,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        nameField = (EditText) findViewById(R.id.name);
-        userIdField = (EditText) findViewById(R.id.userId);
-        passwordField = (EditText) findViewById(R.id.password);
-        accountType = (Spinner) findViewById(R.id.spinner);
+        nameField = findViewById(R.id.name);
+        userIdField = findViewById(R.id.userId);
+        passwordField = findViewById(R.id.password);
+        accountType = findViewById(R.id.spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
                 User.USER_TYPES);
@@ -86,11 +86,13 @@ public class RegisterActivity extends AppCompatActivity {
                             User user = new User(name, userId, userType);
                             model.addUser(user);
                             model.setCurrentUser(user.getUsername());
-                            Intent intent = new Intent(RegisterActivity.this, WelcomeActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this,
+                                    WelcomeActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user
-                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
+                            Toast.makeText(RegisterActivity.this,
+                                    task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

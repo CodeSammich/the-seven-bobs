@@ -17,6 +17,10 @@ import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Shelter;
 import cs2340.shelterbuzz.model.ShelterManager;
 
+/**
+ * The activity for displaying the Google Map of the shelters. Can either display
+ * every shelter, or some shelters after they have been filtered by a search.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -60,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 	        cameraLocation = shelterLocation; 
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f)); // default zoom
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f));
+        //default zoom
     }
 }

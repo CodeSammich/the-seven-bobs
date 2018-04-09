@@ -1,5 +1,6 @@
 package cs2340.shelterbuzz;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -36,15 +37,15 @@ import java.lang.reflect.Method;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.IllegalAccessException;
-
+/**
+ * This class are JUnit tests for the ShelterManager's containsAge method.
+ * @author Ye-ji Kim
+ * @version 1.0
+ */
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({ FirebaseDatabase.class})
-
-/**
- * Created by YEJIKIM on 4/7/18.
- */
 
 public class AgeTest {
 
@@ -61,6 +62,10 @@ public class AgeTest {
 
     public static final int TIMEOUT = 200; // 200ms
 
+    /**
+     * Method used for setting up the mock Firebase and reference to the containsAge method needed
+     * for the JUnits tests.
+     */
     @Before
     public void setUp() {
 		/* FIREBASE */
@@ -111,6 +116,12 @@ public class AgeTest {
 
 
     /* GENERIC */
+
+    /**
+     * Various JUnits tests for ShelterManager's containsAge method
+     * @throws IllegalAccessException if test does not have access to the method being invoked
+     * @throws InvocationTargetException when invoking a private method throws an exception
+     */
     @Test(timeout = TIMEOUT)
     public void testUnspecified()
     throws IllegalAccessException, InvocationTargetException {
