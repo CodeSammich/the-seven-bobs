@@ -95,7 +95,7 @@ public class YounTests {
         when(FirebaseDatabase.getInstance()).thenReturn(mockedFirebaseDatabase);
         when(mockedDatabaseReference.child(anyString())).thenReturn(mockedDatabaseReference);
         when(mockedDatabaseReference.orderByChild(anyString())).thenReturn(mockedDatabaseReference);
-        when(mockedDatabaseReference.equalTo(anyString())).thenReturn(shelter);
+        //when(mockedDatabaseReference.equalTo(anyString())).thenReturn(shelter);
 
         /* END FIREBASE */
 

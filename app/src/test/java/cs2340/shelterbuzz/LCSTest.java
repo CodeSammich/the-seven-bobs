@@ -41,24 +41,15 @@ public class LCSTest {
 	private ShelterManager manager;
 	private Method lcsMethod;
 
-
 	@Mock
 	private DatabaseReference mockedDatabaseReference;
 
     public static final int TIMEOUT = 200; // 200ms
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * Method used for setting up the mock Firebase and reference to the LCS method needed
      * for the JUnits tests.
      */
-=======
-
->>>>>>> abd6d313af818df578216989e82db10fdf604379
-=======
-
->>>>>>> abd6d313af818df578216989e82db10fdf604379
 	@Before
 	public void setUp() {
         // mock Firebase for JUnit static method test in create manager
