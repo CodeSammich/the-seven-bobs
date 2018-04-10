@@ -1,6 +1,7 @@
 package cs2340.shelterbuzz.model;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public enum Gender {
      * Returns list of the enum's possible String representations.
      * @return Returns list of the enum's possible String representations.
      */
-    public List<String> getValue() {
+    public Collection<String> getValue() {
         return gender;
     }
 
@@ -34,7 +35,8 @@ public enum Gender {
      */
     public static Gender enumOf(String word) {
         for (Gender gender : values()) {
-            if (gender.getValue().contains(word)) {
+            Collection<String> vals = gender.getValue();
+            if (vals.contains(word)) {
                 return gender;
             }
         }

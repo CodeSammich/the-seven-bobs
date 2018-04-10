@@ -41,16 +41,17 @@ public class ShelterListActivity extends ListActivity {
 		model = Model.getInstance();
 
 		List<Shelter> shelters;
-		String shelterName = getIntent().getStringExtra("name");
+		Intent intent = getIntent();
+		String shelterName = intent.getStringExtra("name");
 		// If start of this activity was a result of a search...
 		if (shelterName != null) {
 			// only get shelters that match w/ user parameters
-			Gender g = (Gender) getIntent().getSerializableExtra("gender");
-			Age a = (Age) getIntent().getSerializableExtra("age");
+			Gender g = (Gender) intent.getSerializableExtra("gender");
+			Age a = (Age) intent.getSerializableExtra("age");
 			shelters = model.searchShelters(shelterName, a, g);
 		} else {
 			// else get every shelter
-			shelters = Model.getInstance().getAllShelters();
+			shelters = model.getAllShelters();
 		}
 
 		// Populate list view with shelters
@@ -86,8 +87,7 @@ public class ShelterListActivity extends ListActivity {
 		// EXTRA_SHELTER is just a static final string, I do it like this
 		// to guarantee consistency across activities
 		intent.putExtra(ShelterDetailActivity.EXTRA_SHELTER,
-		                ((Shelter) getListView().
-		                 getItemAtPosition(position)).getId());
+		                ((Shelter) getListView().getItemAtPosition(position)).getId());
 		startActivity(intent);
 	}
 }

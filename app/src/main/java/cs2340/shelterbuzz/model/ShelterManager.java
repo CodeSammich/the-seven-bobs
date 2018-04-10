@@ -24,9 +24,9 @@ public class ShelterManager {
     private static final ShelterManager instance = new ShelterManager();
     private static final String TAG = "ShelterManager";
 
-    private Map<Integer, Shelter> shelters;
+    private final Map<Integer, Shelter> shelters;
     private List<Shelter> sheltersList;
-    private DatabaseReference database;
+    private final DatabaseReference database;
 
     private ShelterManager() {
         shelters = new HashMap<>();
@@ -37,6 +37,10 @@ public class ShelterManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Shelter shelter = snapshot.getValue(Shelter.class);
+                    Age age = Age.enumOf(shelter.getRestrictionsString());
+                    if (age == Age.ANYONE) {
+                        Log.d(TAG, "everyone is welcome");
+                    }
                     shelters.put(shelter.getId(), shelter);
                 }
                 sheltersList = new ArrayList<>(shelters.values());
@@ -55,7 +59,7 @@ public class ShelterManager {
      * returns an instance of a shelter manager
      * @return instance of a shelter manager
      */
-    public static final ShelterManager getInstance() {
+    public static ShelterManager getInstance() {
         return instance;
     }
 
@@ -152,7 +156,7 @@ public class ShelterManager {
 
         // order priority queue by longest common subsequence length between
         // the search query and the shelter name
-        if (name.equals("")) {
+        if (name.isEmpty()) {
             // if no name field entered, just search by Age/Gender
             for (int simple = 0; simple < this.sheltersList.size(); simple++) {
                 Shelter current = sheltersList.get(simple);
@@ -197,18 +201,18 @@ public class ShelterManager {
 
                 // name incorrect, check if gender and age also match
                 // by default is UNSPECIFIED, so containsAge/Gender will be true
-                if (priority >= 4  // number of good chars
+                if ((priority >= 4)  // number of good chars
                         &&
-                        containsAge(current.getRestrictionsString(), age)
+                        (containsAge(current.getRestrictionsString(), age))
                         &&
-                        containsGender(current.getRestrictionsString(), gender)) {
+                        (containsGender(current.getRestrictionsString(), gender))) {
                     searchedShelters.add(new ShelterPriority(current, priority));
                 }
             }
         }
 
         // Convert PQ to generic List for consistency
-        ArrayList<Shelter> sheltersList = new ArrayList<>();
+        List<Shelter> sheltersList = new ArrayList<>();
         ShelterPriority[] PQShelters = searchedShelters.toArray(new ShelterPriority[0]);
         for (int i = 0; i < PQShelters.length; i++) {
             sheltersList.add(PQShelters[i].getShelter());
@@ -229,7 +233,7 @@ public class ShelterManager {
 	public List<Shelter> searchSheltersDumb(String name, Age age, Gender gender) {
         List<Shelter> searchedShelters = new ArrayList<>();
 
-        if (name.equals("")) {
+        if (name.isEmpty()) {
             // if no name field entered, just search by Age/Gender
             for (int i = 0; i < sheltersList.size(); i++) {
                 Shelter current = sheltersList.get(i);
@@ -262,7 +266,7 @@ public class ShelterManager {
     private int longestCommonSubsequenceLength(String s1, String s2) {
         // DP solution for LCS, slightly modified from 3510 notes
 	    // assume we start from x_1 ... x_n, and y_1 ... y_m
-        if (s1.equals("") || s2.equals("")) {
+        if (s1.isEmpty() || s2.isEmpty()) {
             return 0;
         }
 
@@ -286,8 +290,8 @@ public class ShelterManager {
         }
 
         // update the strings to include placeholder '_' char
-        s1 = shifted_s1.toString();
-        s2 = shifted_s2.toString();
+        String str1 = shifted_s1.toString();
+        String str2 = shifted_s2.toString();
 
         // L = max length of LCS between s1_1 -> s1_n and s2_1 -> s2_m
         int[][] L = new int[n+1][m+1];
@@ -301,7 +305,7 @@ public class ShelterManager {
 
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
-	            if (s1.charAt(i) == s2.charAt(j)) { // charAt(1) starts at x_1, so placeholder ignored
+	            if (str1.charAt(i) == str2.charAt(j)) { // charAt(1) starts at x_1, so placeholder ignored
                     L[i][j] = 1 + L[i-1][j-1];
                 } else {
                     L[i][j] = Math.max(L[i-1][j], L[i][j-1]);
@@ -338,14 +342,17 @@ public class ShelterManager {
      * @return true if restrictions contains gender keywords, false otherwise
      */
     private boolean containsGender(String restrictions, Gender gender) {
+        String men = "men";
+        String male = "male";
+
         for (String phrase : gender.getValue()) {
             // phrase is a way a restriction might be phrased
             if (restrictions.toLowerCase().contains(phrase.toLowerCase())) {
                 // VERY quick, dumb fix to this
-                if (phrase.toLowerCase().equals("men")
+                if (phrase.toLowerCase().equals(men)
                         && restrictions.toLowerCase().contains("women")) {
                     return false;
-                } else if (phrase.toLowerCase().equals("male")
+                } else if (phrase.toLowerCase().equals(male)
                         && restrictions.toLowerCase().contains("female")) {
                     return false;
                 }

@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Model model;
     private FirebaseAuth auth;
-    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password);
         accountType = findViewById(R.id.spinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 User.USER_TYPES);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountType.setAdapter(adapter);
 
         auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance().getReference();
         model = Model.getInstance();
     }
 
@@ -91,8 +89,9 @@ public class RegisterActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user
+                            Exception exception = task.getException();
                             Toast.makeText(RegisterActivity.this,
-                                    task.getException().getMessage(),
+                                    exception.getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

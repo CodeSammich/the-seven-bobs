@@ -9,8 +9,8 @@ import java.util.List;
 public class Model {
 	private static final Model _instance = new Model();
 
-	private ShelterManager shelterManager = ShelterManager.getInstance();
-	private UserManager userManager = UserManager.getInstance();
+	private final ShelterManager shelterManager = ShelterManager.getInstance();
+	private final UserManager userManager = UserManager.getInstance();
 
 	public static Model getInstance() { return _instance; }
 
@@ -20,9 +20,8 @@ public class Model {
 	 * @param u user account
 	 * @return true if user added successfully, false otherwise
 	 */
-	public boolean addUser(User u) {
+	public void addUser(User u) {
         userManager.add(u);
-        return true;
 	}
 
 
@@ -85,7 +84,8 @@ public class Model {
 	 * Checks user out of shelter
 	 */
     public void checkout() {
-        List<Integer> checkIn = userManager.getCurrentUser().getCheckIn();
+    	User currentUser = getCurrentUser();
+        List<Integer> checkIn = currentUser.getCheckIn();
 	    shelterManager.checkOut(checkIn.get(0), checkIn.get(1));
 	    userManager.checkOut();
     }

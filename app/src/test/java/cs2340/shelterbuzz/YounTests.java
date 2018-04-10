@@ -49,6 +49,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.IllegalAccessException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 /* END PRIVATE */
 
@@ -116,7 +117,7 @@ public class YounTests {
                     DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
                     when(mockedDataSnapshot.getValue(Shelter.class)).thenReturn(shelter);
 
-                    List<DataSnapshot> list = new ArrayList();
+                    Collection<DataSnapshot> list = new ArrayList();
                     list.add(mockedDataSnapshot);
                     when(mockedDataSnapshot.getChildren()).thenReturn(list);
 
@@ -134,7 +135,7 @@ public class YounTests {
                     DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
                     when(mockedDataSnapshot.getValue(Shelter.class)).thenReturn(shelter);
 
-                    List<DataSnapshot> list = new ArrayList();
+                    Collection<DataSnapshot> list = new ArrayList();
                     list.add(mockedDataSnapshot);
                     when(mockedDataSnapshot.getChildren()).thenReturn(list);
 

@@ -52,7 +52,8 @@
 
     <include
         layout="@layout/content_shelter_list"
-        android:layout_height="531dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
         tools:layout_editor_absoluteY="123dp" />
 
 </android.support.design.widget.CoordinatorLayout>

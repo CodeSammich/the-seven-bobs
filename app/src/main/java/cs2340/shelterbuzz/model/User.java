@@ -38,7 +38,6 @@ public class User {
         this.name = name;
         this.username = user.split("@")[0];
         this.userType = userType;
-        this.checkIn = null;
     }
 
     /**
@@ -55,7 +54,7 @@ public class User {
      * @return a boolean telling if the user is checked into the specific shelter
      */
     public boolean isCheckedIn(int shelterId) {
-        return checkIn != null && checkIn.get(0) == shelterId;
+        return (checkIn != null) && (checkIn.get(0) == shelterId);
     }
 
     /**

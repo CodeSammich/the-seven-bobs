@@ -1,5 +1,6 @@
 package cs2340.shelterbuzz.model;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Arrays;
 
@@ -27,7 +28,7 @@ public enum Age {
      * Returns a list of the possible String values of the enum.
      * @return List of possible String values of the enum.
      */
-    public List<String> getValue() {
+    public Collection<String> getValue() {
         return age;
     }
 
@@ -39,7 +40,8 @@ public enum Age {
      */
     public static Age enumOf(String word) {
         for (Age age : values()) {
-            if (age.getValue().contains(word)) {
+            Collection<String> vals = age.getValue();
+            if (vals.contains(word)) {
                 return age;
             }
         }

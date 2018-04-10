@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+
+import java.io.Serializable;
 
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Age;
@@ -33,13 +36,13 @@ public class SearchActivity extends AppCompatActivity {
         // set default text to empty
         nameField.setText("");
 
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter(this,android.R.layout.simple_spinner_item, Gender.values());
+        ArrayAdapter<Gender> adapter =
+                new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, Gender.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);
 
-        ArrayAdapter<String> adapter2 =
-                new ArrayAdapter(this,android.R.layout.simple_spinner_item, Age.values());
+        ArrayAdapter<Age> adapter2 =
+                new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, Age.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         age.setAdapter(adapter2);
 
@@ -51,8 +54,8 @@ public class SearchActivity extends AppCompatActivity {
      */
     public void onSearchPressed(View view) {
         String name = nameField.getText().toString();
-        Gender g = (Gender) gender.getSelectedItem();
-        Age a = (Age) age.getSelectedItem();
+        Serializable g = (Gender) gender.getSelectedItem();
+        Serializable a = (Age) age.getSelectedItem();
 
         Intent intent = new Intent(this, ShelterListActivity.class);
         // Pass on user input to ShelterListActivity

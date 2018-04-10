@@ -90,7 +90,7 @@ public class Shelter implements Serializable {
      * Gets address of the shelter
      * @return address string representation of address of the shelter
      */
-    public String getAddress() {
+    public CharSequence getAddress() {
         return address;
     }
 
@@ -98,7 +98,7 @@ public class Shelter implements Serializable {
      * Gets extra notes of the shelter
      * @return notes string representation of extra notes of the shelter
      */
-    public String getNotes() {
+    public CharSequence getNotes() {
         return notes;
     }
 
@@ -106,7 +106,7 @@ public class Shelter implements Serializable {
      * Gets phone number contact of the shelter
      * @return phoneNum int value of phone number contact of the shelter
      */
-    public String getPhoneNum() {
+    public CharSequence getPhoneNum() {
         return phoneNum;
     }
 

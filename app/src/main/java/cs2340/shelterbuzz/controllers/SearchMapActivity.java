@@ -20,9 +20,14 @@ import cs2340.shelterbuzz.model.ShelterManager;
 
 public class SearchMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
 	private List<Shelter> searchResults = new ArrayList<>();
 
+    // Atlanta by default
+    private final double lat = 33.7490;
+    private final double lng = 84.3880;
+    private final float defaultZoom = 12.0f;
+
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,22 +54,18 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        List<LatLng> locations = new ArrayList<>();
-        LatLng cameraLocation = new LatLng(33.7490, 84.3880); // Atlanta by default
+        LatLng cameraLocation = new LatLng(lat, lng); // Atlanta by default
         for (Shelter shelter : searchResults) {
 	        // Add markers
 	        LatLng shelterLocation = new LatLng(shelter.getLat(), shelter.getLng());
-	        mMap.addMarker(new MarkerOptions().position(shelterLocation)
+	        googleMap.addMarker(new MarkerOptions().position(shelterLocation)
 	                       .title(shelter.getName() + " / " + shelter.getPhoneNum()));
 
 	        // set camera location to be last of the loaded shelters
 	        // set this to be user location later
 	        cameraLocation = shelterLocation; 
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f));
-        //default zoom
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, defaultZoom));
     }
 }

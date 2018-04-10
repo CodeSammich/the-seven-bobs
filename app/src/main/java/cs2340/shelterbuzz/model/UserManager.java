@@ -20,8 +20,8 @@ public class UserManager {
     private static final UserManager instance = new UserManager();
     private static final String TAG = "UserManager";
 
-    private Map<String, User> users;
-    private DatabaseReference database;
+    private final Map<String, User> users;
+    private final DatabaseReference database;
 
     private User currentUser;
 
@@ -51,7 +51,7 @@ public class UserManager {
      * returns an instance of a UserManager
      * @return user manager instance
      */
-    public static final UserManager getInstance() {
+    public static UserManager getInstance() {
         return instance;
     }
 

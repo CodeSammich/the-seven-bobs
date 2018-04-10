@@ -3,6 +3,7 @@ package cs2340.shelterbuzz.controllers;
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
+import cs2340.shelterbuzz.model.User;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 /**
  *
@@ -27,6 +30,7 @@ public class ShelterDetailActivity extends Activity {
 
     private Model model;
     private int shelterId;
+    private User currentUser;
 
 	private TextView name;
 	private TextView capacity;
@@ -37,11 +41,15 @@ public class ShelterDetailActivity extends Activity {
 	private EditText numRoomInput;
 	private Button checkInButton;
 
+    // Frequency at which UI
+	private final int updateFreq = 500; // ms
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail);
         model = Model.getInstance();
+        currentUser = model.getCurrentUser();
 
         name = findViewById(R.id.name);
         capacity = findViewById(R.id.capacity);
@@ -70,7 +78,7 @@ public class ShelterDetailActivity extends Activity {
      */
     public void onCheckInPressed(View view) {
         try {
-            if (model.getCurrentUser().isCheckedIn(shelterId)) {
+            if (currentUser.isCheckedIn(shelterId)) {
                 model.checkout();
                 Toast.makeText(ShelterDetailActivity.this, "Check out successful!",
                         Toast.LENGTH_SHORT).show();
@@ -87,7 +95,7 @@ public class ShelterDetailActivity extends Activity {
                 public void run() {
                     updateUI();
                 }
-            }, 500);
+            }, updateFreq);
             updateUI();
         } catch (IllegalArgumentException e) {
             Toast.makeText(ShelterDetailActivity.this, e.getMessage(),
@@ -103,16 +111,16 @@ public class ShelterDetailActivity extends Activity {
      * If the user is already checked in, then the user will be able to click the button with
      * the updated phrase "checkout"
      */
-    public void updateUI() {
+    private void updateUI() {
         shelterId = getIntent().getIntExtra(EXTRA_SHELTER, -1);
         Shelter shelter = model.getShelter(shelterId);
 
-        if (model.getCurrentUser().isCheckedIn()) {
+        if (currentUser.isCheckedIn()) {
             numRoomInput.setEnabled(false);
             checkInButton.setEnabled(false);
-            if (model.getCurrentUser().isCheckedIn(shelterId)) {
+            if (currentUser.isCheckedIn(shelterId)) {
                 checkInButton.setEnabled(true);
-                checkInButton.setText("Checkout");
+                checkInButton.setText("Check Out");
             }
         } else {
             numRoomInput.setEnabled(true);
@@ -121,7 +129,7 @@ public class ShelterDetailActivity extends Activity {
         }
 
         name.setText(shelter.getName());
-        capacity.setText(String.format("%d / %d",
+        capacity.setText(String.format(Locale.getDefault(), "%d / %d",
                 shelter.getRemaining(), shelter.getCapacity()));
         restrictions.setText(shelter.getRestrictionsString());
         address.setText(shelter.getAddress());

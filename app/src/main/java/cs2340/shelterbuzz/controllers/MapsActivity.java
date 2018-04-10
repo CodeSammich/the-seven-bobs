@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs2340.shelterbuzz.R;
+import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
 import cs2340.shelterbuzz.model.ShelterManager;
 
@@ -23,7 +24,7 @@ import cs2340.shelterbuzz.model.ShelterManager;
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        model = Model.getInstance();
     }
 
 
@@ -47,12 +49,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        GoogleMap mMap;
+
+        // Atlanta by default
+        double lat = 33.7490;
+        double lng = 84.3880;
+        float defaultZoom = 12.0f;
+
         mMap = googleMap;
 
-        List<Shelter> shelters = ShelterManager.getInstance().getAll();
+        List<Shelter> shelters = model.getAllShelters();
 
         List<LatLng> locations = new ArrayList<>();
-        LatLng cameraLocation = new LatLng(33.7490, 84.3880); // Atlanta by default
+        LatLng cameraLocation = new LatLng(lat, lng);
         for (Shelter shelter : shelters) {
 	        // Add markers
 	        LatLng shelterLocation = new LatLng(shelter.getLat(), shelter.getLng());
@@ -63,8 +72,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 	        // set this to be user location later
 	        cameraLocation = shelterLocation; 
         }
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraLocation));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, 12.0f));
-        //default zoom
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraLocation, defaultZoom));
     }
 }
