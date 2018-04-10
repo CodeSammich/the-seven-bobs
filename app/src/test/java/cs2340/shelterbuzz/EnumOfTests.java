@@ -28,8 +28,8 @@ public class EnumOfTests {
     /**
      * test case that checks if the correct Gender enum is returned based on a string
      * identifier that may be associated with a shelter
-     * @throws InvocationTargetException if test does not have access to the method being invoked
      * @throws InvocationTargetException when invoking a private method throws an exception
+     * @throws IllegalAccessException if test does not have access to the method being invoked
      */
     @Test(timeout = TIMEOUT)
     public void testContainsWord()
@@ -47,8 +47,8 @@ public class EnumOfTests {
      * test that checks if the method returns null if that word cannot be found in the
      * gender enums
      *
-     * @throws InvocationTargetException if test does not have access to the method being invoked
      * @throws InvocationTargetException when invoking a private method throws an exception
+     * @throws IllegalAccessException if test does not have access to the method being invoked
      */
     @Test(timeout = TIMEOUT)
     public void testDoesNotContainWord()
