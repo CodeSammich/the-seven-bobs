@@ -20,64 +20,25 @@ import java.lang.IllegalAccessException;
 public class EnumOfTests {
 
     public static final int TIMEOUT = 200; // 200ms
-        private Gender genderEnum;
 
-    @Before
-    public void setUp() {
-        
-
+    @Test(timeout = TIMEOUT)
+    public void testContainsWord()
+            throws InvocationTargetException, IllegalAccessException {
+        assertEquals(Gender.MALE, Gender.enumOf("Men"));
+        assertEquals(Gender.MALE, Gender.enumOf("Male"));
+        assertEquals(Gender.FEMALE, Gender.enumOf("Women"));
+        assertEquals(Gender.FEMALE, Gender.enumOf("Female"));
+        assertEquals(Gender.GENDER_FLUID, Gender.enumOf("Fluid"));
+        assertEquals(Gender.GENDER_NEUTRAL, Gender.enumOf("Agender"));
+        assertEquals(Gender.GENDER_NEUTRAL, Gender.enumOf("Neutral"));
+        assertEquals(Gender.MALE, Gender.enumOf("Me"));
     }
 
     @Test(timeout = TIMEOUT)
-    public void testEmptyString()
-            throws InvocationTargetException, IllegalAccessException {
-        assertEquals(0, lcsMethod.invoke(manager, "", ""));
+    public void testDoesNotContainWord()
+        throws InvocationTargetException, IllegalAccessException {
+        assertEquals(null, Gender.enumOf("Memerino"));
+        assertEquals(null, Gender.enumOf("Agemder"));
     }
 
-    @Test(timeout = TIMEOUT)
-    public void testSubsequenceIsThere()
-            throws InvocationTargetException, IllegalAccessException {
-        // s1 is shorter than s2
-        assertEquals(1, lcsMethod.invoke(manager, "a", "abc"));
-        assertEquals(2, lcsMethod.invoke(manager, "we", "waters"));
-        assertEquals(3, lcsMethod.invoke(manager, "obb", "bobbers"));
-        assertEquals(4, lcsMethod.invoke(manager, "otil", "computational"));
-        assertEquals(5, lcsMethod.invoke(manager, "mpnos", "lamperinnos"));
-        assertEquals(10, lcsMethod.invoke(manager, "lamperinno", "lamperinnos"));
-
-        // s2 is shorter than s1
-        assertEquals(1, lcsMethod.invoke(manager, "abc", "a"));
-        assertEquals(2, lcsMethod.invoke(manager, "waters", "we"));
-        assertEquals(3, lcsMethod.invoke(manager, "bobbers", "obb"));
-        assertEquals(4, lcsMethod.invoke(manager, "computational", "otil"));
-        assertEquals(5, lcsMethod.invoke(manager, "lamperinnos", "mpnos"));
-        assertEquals(10, lcsMethod.invoke(manager, "lamperinnos", "lamperinno"));
-
-        // strings are equal
-        assertEquals(3, lcsMethod.invoke(manager, "abc", "abc"));
-    }
-
-    @Test(timeout= TIMEOUT)
-    public void testSubsequenceIsNotThere()
-            throws InvocationTargetException, IllegalAccessException {
-        // s1 is shorter than s2
-        assertEquals(0, lcsMethod.invoke(manager, "bear", ""));
-        assertEquals(0, lcsMethod.invoke(manager, "pony", "abc"));
-        assertEquals(0, lcsMethod.invoke(manager, "yeji", "waters"));
-        assertEquals(0, lcsMethod.invoke(manager, "teeny", "bobbers"));
-        assertEquals(0, lcsMethod.invoke(manager, "bebe", "computational"));
-        assertEquals(0, lcsMethod.invoke(manager, "zuzzc", "lamperinnos"));
-
-        // s2 is shorter than s1
-        assertEquals(0, lcsMethod.invoke(manager, "", "bear"));
-        assertEquals(0, lcsMethod.invoke(manager, "abc", "pony"));
-        assertEquals(0, lcsMethod.invoke(manager, "waters", "yeji"));
-        assertEquals(0, lcsMethod.invoke(manager, "bobbers", "teeny"));
-        assertEquals(0, lcsMethod.invoke(manager, "computational", "bebe"));
-        assertEquals(0, lcsMethod.invoke(manager, "lamperinnos", "zuzzc"));
-
-        // strings are equal
-        assertEquals(3, lcsMethod.invoke(manager, "edf", "abc"));
-        assertEquals(3, lcsMethod.invoke(manager, "abc", "edf"));
-    }
 }
