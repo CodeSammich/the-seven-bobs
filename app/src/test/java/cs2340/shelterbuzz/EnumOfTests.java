@@ -17,10 +17,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.IllegalAccessException;
 
 //for Gender class
+
+/**
+ * Tests for enum of in the gender class
+ */
 public class EnumOfTests {
 
     public static final int TIMEOUT = 200; // 200ms
 
+    /**
+     * test case that checks if the correct Gender enum is returned based on a string
+     * identifier that may be associated with a shelter
+     * @throws InvocationTargetException if test does not have access to the method being invoked
+     * @throws InvocationTargetException when invoking a private method throws an exception
+     */
     @Test(timeout = TIMEOUT)
     public void testContainsWord()
             throws InvocationTargetException, IllegalAccessException {
@@ -31,9 +41,15 @@ public class EnumOfTests {
         assertEquals(Gender.GENDER_FLUID, Gender.enumOf("Fluid"));
         assertEquals(Gender.GENDER_NEUTRAL, Gender.enumOf("Agender"));
         assertEquals(Gender.GENDER_NEUTRAL, Gender.enumOf("Neutral"));
-        assertEquals(Gender.MALE, Gender.enumOf("Me"));
     }
 
+    /**
+     * test that checks if the method returns null if that word cannot be found in the
+     * gender enums
+     *
+     * @throws InvocationTargetException if test does not have access to the method being invoked
+     * @throws InvocationTargetException when invoking a private method throws an exception
+     */
     @Test(timeout = TIMEOUT)
     public void testDoesNotContainWord()
         throws InvocationTargetException, IllegalAccessException {
