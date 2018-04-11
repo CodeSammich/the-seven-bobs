@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent WelcomeActivityIntent =
 	                new Intent(getApplicationContext(), WelcomeActivity.class);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button mapButton = findViewById(R.id.mapbutton);
         mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent MapActivityIntent =
 	                new Intent(getApplicationContext(), MapsActivity.class);
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent ShelterListActivityIntent =
 	                new Intent(getApplicationContext(), ShelterListActivity.class);
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         
         Button searchButton = findViewById(R.id.searchbutton);
         searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent SearchActivityIntent =
 	                new Intent(getApplicationContext(), SearchActivity.class);

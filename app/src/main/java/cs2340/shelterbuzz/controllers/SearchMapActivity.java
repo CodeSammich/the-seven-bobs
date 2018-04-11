@@ -16,8 +16,10 @@ import java.util.List;
 
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Shelter;
-import cs2340.shelterbuzz.model.ShelterManager;
 
+/**
+ * Activity that displays shelters of a search result on the map
+ */
 public class SearchMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
 	private List<Shelter> searchResults = new ArrayList<>();

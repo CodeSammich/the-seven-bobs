@@ -1,11 +1,9 @@
 package cs2340.shelterbuzz.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-
-
-public class Shelter implements Serializable {
+/**
+ * Represents a homeless shelter
+ */
+public class Shelter {
 
     private int id; // Unique id
     private String name;
@@ -17,14 +15,28 @@ public class Shelter implements Serializable {
 	private String notes;
 	private String phoneNum;
 
-    private List<Integer> restrictions;
     private int remaining;
 
-    // No-args constructor required by Firebase
+    /**
+     * No-args constructor required by Firebase
+     */
     public Shelter() {
 
     }
 
+    /**
+     * Constructs a shelter
+     *
+     * @param id shelter ID
+     * @param name shelter name
+     * @param capacity shelter capacity
+     * @param restrictionsString shelter restrictions represented as string
+     * @param lng shelter longitude
+     * @param lat shelter latitude
+     * @param address shelter address
+     * @param notes shelter notes
+     * @param phoneNum shelter phoneNum
+     */
     public Shelter(int id, String name, int capacity, String restrictionsString,
                    double lng, double lat, String address, String notes, String phoneNum) {
         this.id = id;
@@ -116,10 +128,6 @@ public class Shelter implements Serializable {
      */
     public int getRemaining() {
         return remaining;
-    }
-
-    public List<Integer> getRestrictions() {
-        return restrictions;
     }
 
     /**

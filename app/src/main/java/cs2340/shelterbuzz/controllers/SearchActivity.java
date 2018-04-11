@@ -2,15 +2,11 @@ package cs2340.shelterbuzz.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import java.io.Serializable;
 
@@ -18,6 +14,10 @@ import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Age;
 import cs2340.shelterbuzz.model.Gender;
 
+/**
+ * Activity in which users search shelters based on the inputs
+ * name, gender, and age
+ */
 public class SearchActivity extends AppCompatActivity {
 
     private EditText nameField;

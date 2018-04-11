@@ -10,13 +10,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
-import cs2340.shelterbuzz.model.ShelterManager;
 
 /**
  * The activity for displaying the Google Map of the shelters. Can either display
@@ -60,7 +58,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         List<Shelter> shelters = model.getAllShelters();
 
-        List<LatLng> locations = new ArrayList<>();
         LatLng cameraLocation = new LatLng(lat, lng);
         for (Shelter shelter : shelters) {
 	        // Add markers

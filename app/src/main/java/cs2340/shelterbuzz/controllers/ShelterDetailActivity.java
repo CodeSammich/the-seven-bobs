@@ -30,6 +30,7 @@ public class ShelterDetailActivity extends Activity {
 
     private Model model;
     private int shelterId;
+    private Shelter shelter;
     private User currentUser;
 
 	private TextView name;
@@ -113,7 +114,7 @@ public class ShelterDetailActivity extends Activity {
      */
     private void updateUI() {
         shelterId = getIntent().getIntExtra(EXTRA_SHELTER, -1);
-        Shelter shelter = model.getShelter(shelterId);
+        shelter = model.getShelter(shelterId);
 
         if (currentUser.isCheckedIn()) {
             numRoomInput.setEnabled(false);

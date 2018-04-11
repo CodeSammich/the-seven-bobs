@@ -11,14 +11,19 @@ public class Model {
 
 	private final ShelterManager shelterManager = ShelterManager.getInstance();
 	private final UserManager userManager = UserManager.getInstance();
+	private User currentUser;
 
+    /**
+     * Get instance of model singleton
+     *
+     * @return model instance
+     */
 	public static Model getInstance() { return _instance; }
 
 	/**
 	 * Adds a user to the accounts list
 	 *
 	 * @param u user account
-	 * @return true if user added successfully, false otherwise
 	 */
 	public void addUser(User u) {
         userManager.add(u);
@@ -51,6 +56,8 @@ public class Model {
 
 	/**
 	 * Returns shelter with the shelter ID
+     *
+     * @param shelterID shelterID of shelter to get
 	 * @return shelter by the shelter ID
 	 */
 	public Shelter getShelter(int shelterID) {
@@ -84,9 +91,8 @@ public class Model {
 	 * Checks user out of shelter
 	 */
     public void checkout() {
-    	User currentUser = getCurrentUser();
-        List<Integer> checkIn = currentUser.getCheckIn();
-	    shelterManager.checkOut(checkIn.get(0), checkIn.get(1));
+    	currentUser = getCurrentUser();
+	    shelterManager.checkOut(currentUser.getShelterCheckedIn(), currentUser.getNumBedsCheckedIn());
 	    userManager.checkOut();
     }
 }

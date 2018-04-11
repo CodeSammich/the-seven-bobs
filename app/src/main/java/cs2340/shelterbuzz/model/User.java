@@ -1,5 +1,7 @@
 package cs2340.shelterbuzz.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class User {
      * No-args constructor required by Firebase
      */
     public User() {
-
+        this.checkIn = new ArrayList<>();
     }
 
     /**
@@ -38,6 +40,7 @@ public class User {
         this.name = name;
         this.username = user.split("@")[0];
         this.userType = userType;
+        this.checkIn = new ArrayList<>();
     }
 
     /**
@@ -45,7 +48,7 @@ public class User {
      * @return a boolean telling if the user is checked into any shelter
      */
     public boolean isCheckedIn() {
-        return checkIn != null;
+        return !checkIn.isEmpty();
     }
 
     /**
@@ -54,7 +57,7 @@ public class User {
      * @return a boolean telling if the user is checked into the specific shelter
      */
     public boolean isCheckedIn(int shelterId) {
-        return (checkIn != null) && (checkIn.get(0) == shelterId);
+        return (!checkIn.isEmpty()) && (checkIn.get(0) == shelterId);
     }
 
     /**
@@ -75,18 +78,10 @@ public class User {
      * checked into a shelter
      */
     public void checkOut() {
-        checkIn = null;
+        checkIn.clear();
     }
 
     //getters and setters
-
-    /**
-     * gets the user's name
-     * @return user's name
-     */
-    public String getName() {
-        return name;
-    }
 
     /**
      * gets the user's username
@@ -97,19 +92,18 @@ public class User {
     }
 
     /**
-     * gets the list containing the shelter and number of beds that the user is checked into
-     * or null if the user is not checked in anywhere
-     * @return list of shelter ID and number of beds checked in or null
+     * @return id of shelter checked in
      */
-    public List<Integer> getCheckIn() {
-        return checkIn;
+    @Exclude
+    public int getShelterCheckedIn() {
+        return checkIn.get(0);
     }
 
     /**
-     * gets the user's type
-     * @return homeless person, admin, or shelter employee
+     * @return num beds checked in
      */
-    public String getUserType() {
-        return userType;
+    @Exclude
+    public int getNumBedsCheckedIn() {
+        return checkIn.get(1);
     }
 }

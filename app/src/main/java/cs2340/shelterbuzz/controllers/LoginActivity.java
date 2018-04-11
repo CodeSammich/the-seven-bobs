@@ -80,12 +80,16 @@ public class LoginActivity extends Activity {
                             // Sign in success
                             Log.d("SUCCESSS", "signInWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
-                            String email = user.getEmail();
-                            model.setCurrentUser(email.split("@")[0]);
-                            showProgress(true);
-                            Intent MainActivityIntent = new Intent(getApplicationContext(),
-                                    MainActivity.class);
-                            startActivity(MainActivityIntent);
+                            if (user != null) {
+                                String email = user.getEmail();
+                                if (email != null) {
+                                    model.setCurrentUser(email.split("@")[0]);
+                                    showProgress(true);
+                                    Intent MainActivityIntent = new Intent(getApplicationContext(),
+                                            MainActivity.class);
+                                    startActivity(MainActivityIntent);
+                                }
+                            }
                         } else {
                             Log.w("FAILURE", "signInWithEmail:failure", task.getException());
 

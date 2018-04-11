@@ -6,7 +6,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
@@ -29,12 +28,15 @@ public class UserManager {
         users = new HashMap<>();
         database = FirebaseDatabase.getInstance().getReference();
 
-        ValueEventListener sheltersListener = new ValueEventListener() {
+        ValueEventListener usersListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    users.put(user.getUsername(), user);
+                    if (user != null) {
+                        Log.d(TAG, String.format("user added: %s", user.getUsername()));
+                        users.put(user.getUsername(), user);
+                    }
                 }
             }
 
@@ -44,7 +46,7 @@ public class UserManager {
                 Log.d(TAG, "loadUsers:onCancelled", databaseError.toException());
             }
         };
-        database.child("users").addValueEventListener(sheltersListener);
+        database.child("users").addValueEventListener(usersListener);
     }
 
     /**

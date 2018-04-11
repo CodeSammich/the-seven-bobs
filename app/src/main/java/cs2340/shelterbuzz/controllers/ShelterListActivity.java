@@ -10,14 +10,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import cs2340.shelterbuzz.R;
-import cs2340.shelterbuzz.controllers.SearchMapActivity;
 import cs2340.shelterbuzz.model.Age;
 import cs2340.shelterbuzz.model.Gender;
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.Shelter;
 
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +67,8 @@ public class ShelterListActivity extends ListActivity {
 					shelters = list;
 					return this;
 				}
-				
+
+				@Override
 				public void onClick(View v) {
 					Intent searchMapActivityIntent =
 						new Intent(getApplicationContext(), SearchMapActivity.class);

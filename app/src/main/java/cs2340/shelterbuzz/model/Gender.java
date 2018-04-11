@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * Class representing different genders
+ */
 public enum Gender {
     UNSPECIFIED(""),
     MALE("Men", "Male", "Anyone"),

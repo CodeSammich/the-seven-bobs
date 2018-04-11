@@ -17,12 +17,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import cs2340.shelterbuzz.model.Model;
 import cs2340.shelterbuzz.model.User;
 
+/**
+ * Activity in which users register
+ */
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
 
@@ -44,8 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password);
         accountType = findViewById(R.id.spinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                User.USER_TYPES);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, User.USER_TYPES);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountType.setAdapter(adapter);
 
@@ -90,9 +90,11 @@ public class RegisterActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user
                             Exception exception = task.getException();
-                            Toast.makeText(RegisterActivity.this,
-                                    exception.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                            if ((exception != null) && (exception.getMessage() != null)) {
+                                Toast.makeText(RegisterActivity.this,
+                                        exception.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });

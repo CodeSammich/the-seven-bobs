@@ -23,8 +23,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent LoginActivityIntent = new Intent(getApplicationContext(),
+                Intent LoginActivityIntent = new Intent(WelcomeActivity.this,
                         LoginActivity.class);
                 startActivity(LoginActivityIntent);
             }
@@ -34,14 +35,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent RegisterActivityIntent = new Intent(getApplicationContext(),
-                            RegisterActivity.class);
-                    startActivity(RegisterActivityIntent);
-                }
-                }
-
-        );
+            @Override
+            public void onClick(View v) {
+                Intent RegisterActivityIntent = new Intent(WelcomeActivity.this,
+                        RegisterActivity.class);
+                startActivity(RegisterActivityIntent);
+            }
+        });
         Log.d("Doh!", TAG);
     }
 }
