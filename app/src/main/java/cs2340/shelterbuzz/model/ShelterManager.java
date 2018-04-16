@@ -222,7 +222,7 @@ public class ShelterManager {
         return priority;
     }
 
-    private List<Shelter> searchSheltersWithoutName(Age age, Gender gender) {
+    public List<Shelter> searchSheltersWithoutName(Age age, Gender gender) {
 	    List<Shelter> shelters = new ArrayList<>();
         for (int simple = 0; simple < this.sheltersList.size(); simple++) {
             Shelter current = sheltersList.get(simple);
