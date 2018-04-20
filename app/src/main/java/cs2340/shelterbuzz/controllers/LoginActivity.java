@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 
     private FirebaseAuth auth;
 
-	private int counter = 0;
+	private static int counter = 0;
 	private boolean locked = false;
 	private TextView counterDisplay;
 
