@@ -130,9 +130,8 @@ public class LoginActivity extends Activity {
                             } else {
 	                            passwordView.setError(getString(R.string.error_incorrect_password) + " " + (counter+1) + " times");
                                 passwordView.requestFocus();
+                                counter++; // add a number of tries counter lock user
                             }
-
-                            counter++; // add a number of tries counter lock user
 
                             if (counter >= 3) {
 	                            // lock user out and start timer
