@@ -7,6 +7,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -18,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -139,13 +145,81 @@ public class LoginActivity extends Activity {
 	                            
 	                            counterDisplay = (TextView)findViewById(R.id.textView1);
 	                            
-	                            new CountDownTimer(60000, 1000) { // one minute
+	                            new CountDownTimer(5000, 1000) { // one minute
+		                            private NotificationManager notifManager;
+		                            
 		                            public void onTick(long millisUntilFinished) {
 			                            counterDisplay.setText("Please wait " + millisUntilFinished / 1000 + " seconds before attempting to login again");
 			                            //here you can have your logic to set text to edittext
 		                            }
 		                            
 		                            public void onFinish() {
+			                            // push notification for API 27 (50 points EC!!)
+			                            final int NOTIFY_ID = 1002;
+			                            Context context = getApplicationContext();
+
+			                            String name = "Shelterbuzz";
+			                            String id = "Shelterbuzz"; // The user-visible name of the channel.
+			                            String description = "You may now login again"; // The user-visible description of the channel.
+			                            String message = "You may now login again";
+			                            
+			                            Intent intent;
+			                            PendingIntent pendingIntent;
+			                            NotificationCompat.Builder builder;
+			                            
+			                            if (notifManager == null) {
+				                            notifManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+			                            }
+
+			                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				                            int importance = NotificationManager.IMPORTANCE_HIGH;
+				                            NotificationChannel mChannel = notifManager.getNotificationChannel(id);
+				                            if (mChannel == null) {
+					                            mChannel = new NotificationChannel(id, name, importance);
+					                            mChannel.setDescription(description);
+					                            mChannel.enableVibration(true);
+					                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+					                            notifManager.createNotificationChannel(mChannel);
+				                            }
+				                            builder = new NotificationCompat.Builder(context, id);
+				                            
+				                            intent = new Intent(context, LoginActivity.class);
+				                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				                            pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+				                            
+				                            builder.setContentTitle(message)  // required
+					                            .setSmallIcon(R.drawable.ic_launcher) // required
+					                            .setContentText(context.getString(R.string.app_name))  // required         
+					                            .setDefaults(Notification.DEFAULT_ALL)
+					                            .setAutoCancel(true)
+					                            .setContentIntent(pendingIntent)
+					                            .setTicker(message)
+					                            .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+			                            } else {
+
+				                            builder = new NotificationCompat.Builder(context);
+				                            
+				                            intent = new Intent(context, MainActivity.class);
+				                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				                            pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+				                            
+				                            builder.setContentTitle(message)                           // required
+					                            .setSmallIcon(R.drawable.ic_launcher) // required
+					                            .setContentText(context.getString(R.string.app_name))  // required
+					                            .setDefaults(Notification.DEFAULT_ALL)
+					                            .setAutoCancel(true)
+					                            .setContentIntent(pendingIntent)
+					                            .setTicker(message)
+					                            .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+					                            .setPriority(Notification.PRIORITY_HIGH);
+			                            }
+			                            
+			                            Notification n = builder.build();
+
+			                            notifManager.notify(NOTIFY_ID, n);
+
+
+			                            // Reset login count and show user
 			                            counterDisplay.setText("You may now log in your account again");
 			                            counter = 0;
 			                            locked = false;
