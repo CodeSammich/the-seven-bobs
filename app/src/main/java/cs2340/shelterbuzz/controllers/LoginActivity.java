@@ -145,7 +145,7 @@ public class LoginActivity extends Activity {
 	                            
 	                            counterDisplay = (TextView)findViewById(R.id.textView1);
 	                            
-	                            new CountDownTimer(5000, 1000) { // one minute
+	                            new CountDownTimer(60000, 1000) { // one minute
 		                            private NotificationManager notifManager;
 		                            
 		                            public void onTick(long millisUntilFinished) {
