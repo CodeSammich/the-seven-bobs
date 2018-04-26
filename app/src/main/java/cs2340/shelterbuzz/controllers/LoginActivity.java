@@ -67,7 +67,7 @@ public class LoginActivity extends Activity {
         auth = FirebaseAuth.getInstance();
 
         // just make counter time invisible by default
-        counterDisplay = (TextView)findViewById(R.id.textView1);
+        counterDisplay = (TextView)findViewById(R.id.login_attempt_text);
         counterDisplay.setText("");
     }
 
