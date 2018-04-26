@@ -143,7 +143,7 @@ public class LoginActivity extends Activity {
 	                            // lock user out and start timer
 	                            locked = true;
 	                            
-	                            counterDisplay = (TextView)findViewById(R.id.textView1);
+	                            counterDisplay = (TextView)findViewById(R.id.login_attempt_text);
 	                            
 	                            new CountDownTimer(60000, 1000) { // one minute
 		                            private NotificationManager notifManager;

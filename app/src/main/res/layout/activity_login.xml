@@ -89,5 +89,6 @@
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
