@@ -76,6 +76,7 @@
         android:layout_below="@+id/spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
+        android:background="#ffac4f"
         android:onClick="onConfirmPressed"
         android:text="Register" />
 
