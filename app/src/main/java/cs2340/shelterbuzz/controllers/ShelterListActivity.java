@@ -29,6 +29,7 @@ import java.util.List;
 public class ShelterListActivity extends ListActivity {
 
 	private Model model;
+	private List<Shelter> shelters;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,6 @@ public class ShelterListActivity extends ListActivity {
 
 		model = Model.getInstance();
 
-		List<Shelter> shelters;
 		Intent intent = getIntent();
 		String shelterName = intent.getStringExtra("name");
 		// If start of this activity was a result of a search...
@@ -72,8 +72,11 @@ public class ShelterListActivity extends ListActivity {
 				public void onClick(View v) {
 					Intent searchMapActivityIntent =
 						new Intent(getApplicationContext(), SearchMapActivity.class);
-
-					searchMapActivityIntent.putExtra("shelterList", (ArrayList<Shelter>)shelters);
+                    List<Integer> sheltersById = new ArrayList<>();
+                    for (Shelter s : shelters) {
+                        sheltersById.add(s.getId());
+                    }
+					searchMapActivityIntent.putExtra("shelterList", (ArrayList<Integer>)sheltersById);
 					startActivity(searchMapActivityIntent);
 				}
 			}.init(shelters) ); // works because setOnClickListener expects listener

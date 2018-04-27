@@ -16,6 +16,7 @@ import java.util.List;
 
 import cs2340.shelterbuzz.R;
 import cs2340.shelterbuzz.model.Shelter;
+import cs2340.shelterbuzz.model.Model;
 
 /**
  * Activity that displays shelters of a search result on the map
@@ -42,7 +43,11 @@ public class SearchMapActivity extends FragmentActivity implements OnMapReadyCal
         // receive the intent passed from ShelterListActivity from the new map button
         // and store it to searchResults. The map button assumes searchResults list is initialized
         Intent i = getIntent();
-        this.searchResults = (List<Shelter>) i.getSerializableExtra("shelterList");
+        searchResults = new ArrayList<>();
+        List<Integer> sheltersById = (List<Integer>) i.getSerializableExtra("shelterList");
+        for (Integer id : sheltersById) {
+            searchResults.add(Model.getInstance().getShelter(id));
+        }
     }
 
     /**
