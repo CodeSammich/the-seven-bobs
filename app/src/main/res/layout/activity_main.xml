@@ -1,97 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#ffdb6d"
     tools:context="cs2340.shelterbuzz.controllers.MainActivity">
 
-    <Button
-        android:id="@+id/logoutButton"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/menuLogout"
-        android:layout_alignStart="@+id/menuLogout"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:paddingBottom="32dp"
-        android:paddingTop="32dp"
-        android:text="Logout" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/listButton"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+
+
+            <ImageView
+                android:id="@+id/menuLogout"
+                android:layout_width="102dp"
+                android:layout_height="103dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/menu_logout" />
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/menuLogout"
+                android:layout_alignEnd="@+id/menuLogout"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:paddingBottom="32dp"
+                android:paddingTop="32dp"
+                android:text="Logout"
+                app:layout_constraintBottom_toBottomOf="@+id/menuLogout"
+                app:layout_constraintEnd_toEndOf="@+id/menuLogout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="431dp"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/menuShelters"
+                android:layout_width="178dp"
+                android:layout_height="184dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/menu_shelter" />
+
+            <Button
+                android:id="@+id/listButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:paddingTop="80dp"
+                android:text="Shelters"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/menuShelters"
+                app:layout_constraintEnd_toEndOf="@+id/menuShelters"
+                app:layout_constraintStart_toStartOf="@+id/menuShelters"
+                app:layout_constraintTop_toTopOf="@+id/menuShelters" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/menuSearch"
-        android:layout_alignEnd="@+id/menuShelters"
-        android:layout_marginBottom="34dp"
-        android:layout_marginEnd="39dp"
-        android:background="@android:color/transparent"
-        android:paddingTop="80dp"
-        android:text="Shelters"
-        android:textSize="16dp" />
-
-    <Button
-        android:id="@+id/searchbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/mapbutton"
-        android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@+id/menuShelters"
-        android:background="@android:color/transparent"
-        android:paddingTop="80dp"
-        android:text="Search"
-        android:textSize="16dp" />
-
-
-    <ImageView
-        android:id="@+id/menuMap"
-        android:layout_width="175dp"
-        android:layout_height="174dp"
-        android:layout_alignBottom="@+id/menuSearch"
-        android:layout_alignEnd="@+id/mapbutton"
-        android:layout_marginEnd="18dp"
-        app:srcCompat="@drawable/menu_map" />
-
-    <ImageView
-        android:id="@+id/menuSearch"
-        android:layout_width="185dp"
-        android:layout_height="179dp"
-        android:layout_alignEnd="@+id/searchbutton"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="122dp"
-        app:srcCompat="@drawable/menu_search" />
-
-    <Button
-        android:id="@+id/mapbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/menuMap"
-        android:layout_alignStart="@+id/menuShelters"
-        android:layout_marginBottom="27dp"
-        android:layout_marginStart="22dp"
-        android:gravity="center"
-        android:background="@android:color/transparent"
-        android:paddingTop="80dp"
-        android:text="Map"
-        android:textSize="16dp" />
-
-    <ImageView
-        android:id="@+id/menuShelters"
-        android:layout_width="178dp"
         android:layout_height="184dp"
-        android:layout_above="@+id/searchbutton"
-        android:layout_toEndOf="@+id/menuLogout"
-        app:srcCompat="@drawable/menu_shelter" />
+        android:layout_gravity="center">
 
-    <ImageView
-        android:id="@+id/menuLogout"
-        android:layout_width="102dp"
-        android:layout_height="103dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:srcCompat="@drawable/menu_logout" />
-</RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/menuMap"
+                android:layout_width="160dp"
+                android:layout_height="174dp"
+
+                android:layout_alignEnd="@+id/mapbutton"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/menu_map" />
+
+            <Button
+                android:id="@+id/mapbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:paddingTop="80dp"
+                android:text="Map"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/menuMap"
+                app:layout_constraintStart_toStartOf="@+id/menuMap"
+                app:layout_constraintTop_toTopOf="@+id/menuMap" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/searchbutton"
+                android:layout_width="87dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:paddingTop="80dp"
+                android:text="Search"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/menuSearch"
+                app:layout_constraintEnd_toEndOf="@+id/menuSearch"
+                app:layout_constraintHorizontal_bias="0.612"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/menuSearch" />
+
+
+            <ImageView
+                android:id="@+id/menuSearch"
+                android:layout_width="168dp"
+                android:layout_height="179dp"
+                android:layout_alignEnd="@+id/searchbutton"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/menu_search" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+</LinearLayout>
