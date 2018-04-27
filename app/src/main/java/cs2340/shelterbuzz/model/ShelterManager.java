@@ -222,6 +222,13 @@ public class ShelterManager {
         return priority;
     }
 
+    /**
+     * Searches shelter with only age and gender parameter
+     *
+     * @param age age input
+     * @param gender gender input
+     * @return list of shelters that matches parameter input
+     */
     public List<Shelter> searchSheltersWithoutName(Age age, Gender gender) {
 	    List<Shelter> shelters = new ArrayList<>();
         for (int simple = 0; simple < this.sheltersList.size(); simple++) {

@@ -62,6 +62,7 @@ public class UserManager {
      * @param user the user to be passed into the database
      */
     public void add(User user) {
+        Log.d(TAG, String.format("adding user: %s", user));
         database.child("users").child(user.getUsername()).setValue(user);
     }
 

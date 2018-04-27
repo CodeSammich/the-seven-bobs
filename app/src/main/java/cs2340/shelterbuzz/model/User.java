@@ -106,4 +106,8 @@ public class User {
     public int getNumBedsCheckedIn() {
         return checkIn.get(1);
     }
+
+    public String toString() {
+        return username;
+    }
 }

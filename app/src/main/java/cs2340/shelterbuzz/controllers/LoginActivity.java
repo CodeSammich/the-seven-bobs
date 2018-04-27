@@ -52,6 +52,8 @@ public class LoginActivity extends Activity {
 	private boolean locked = false;
 	private TextView counterDisplay;
 
+	private static String TAG = "LoginActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,16 +112,17 @@ public class LoginActivity extends Activity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("TEST", "Testing authetication");
+                        Log.d(TAG, "Testing authetication");
 
                         if (task.isSuccessful()) {
                             // Sign in success
-                            Log.d("SUCCESSS", "signInWithEmail:success");
+                            Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
                             if (user != null) {
                                 String email = user.getEmail();
                                 if (email != null) {
                                     model.setCurrentUser(email.split("@")[0]);
+                                    Log.d(TAG, String.format("current user: %s", model.getCurrentUser()));
                                     showProgress(true);
                                     Intent MainActivityIntent = new Intent(getApplicationContext(),
                                             MainActivity.class);
